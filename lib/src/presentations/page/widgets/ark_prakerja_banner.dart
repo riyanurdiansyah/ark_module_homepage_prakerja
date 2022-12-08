@@ -1,7 +1,6 @@
 import 'package:ark_module_homepage_prakerja/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ArkPrakerjaBanner extends StatelessWidget {
   final bool isWebinar;
@@ -25,9 +24,9 @@ class ArkPrakerjaBanner extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () async {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      final isLogin = prefs.getBool('user_login') ?? false;
+                      // SharedPreferences prefs =
+                      //     await SharedPreferences.getInstance();
+                      // final isLogin = prefs.getBool('user_login') ?? false;
                       // if (isLogin == true) {
                       //   Get.to(() => VerificationCouponPage(),
                       //       transition: Transition.rightToLeft,
@@ -124,9 +123,9 @@ class ArkPrakerjaBanner extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    final isLogin = prefs.getBool('user_login') ?? false;
+                    // SharedPreferences prefs =
+                    //     await SharedPreferences.getInstance();
+                    // final isLogin = prefs.getBool('user_login') ?? false;
                     // if (isLogin == true) {
                     //   Get.to(() => VerificationCouponPage(),
                     //       transition: Transition.rightToLeft,

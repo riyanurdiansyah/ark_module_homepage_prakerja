@@ -1,13 +1,14 @@
 import 'dart:convert';
 
-List<HomeOneEcom> homeOneEcomFromJson(String str) => List<HomeOneEcom>.from(
-    json.decode(str).map((x) => HomeOneEcom.fromJson(x)));
+List<HomeOneEcomEntity> homeOneEcomFromJson(String str) =>
+    List<HomeOneEcomEntity>.from(
+        json.decode(str).map((x) => HomeOneEcomEntity.fromJson(x)));
 
-String homeOneEcomToJson(List<HomeOneEcom> data) =>
+String homeOneEcomToJson(List<HomeOneEcomEntity> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class HomeOneEcom {
-  HomeOneEcom({
+class HomeOneEcomEntity {
+  HomeOneEcomEntity({
     this.id,
     this.title,
     this.permalink,
@@ -29,7 +30,8 @@ class HomeOneEcom {
   String? siswa;
   String? image;
 
-  factory HomeOneEcom.fromJson(Map<String, dynamic> json) => HomeOneEcom(
+  factory HomeOneEcomEntity.fromJson(Map<String, dynamic> json) =>
+      HomeOneEcomEntity(
         id: json["id"],
         title: json["title"],
         permalink: json["permalink"],

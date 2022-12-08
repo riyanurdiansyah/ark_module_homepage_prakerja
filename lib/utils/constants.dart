@@ -1,3 +1,10 @@
+import 'package:dio/dio.dart';
+
+Options get dioOptions => Options(headers: {
+      "Accept": "*/*",
+      "Content-Type": "application/json",
+    });
+
 final List<Map<String, String>> stepPenyelesaian = [
   {
     'title':

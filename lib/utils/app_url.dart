@@ -11,3 +11,6 @@ const String apiGatewayUrl = 'https://api-gateway.arkademi.com';
 const String apiOrderUrl = 'https://api-orders.arkademi.com';
 
 const String courseUrl = "$apiCourseUrl/api/v1/course";
+
+const String prakerjaUrlStaging =
+    "https://stag-prakerja-apicourse-fgt.arkademi.com";
