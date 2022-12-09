@@ -1,6 +1,8 @@
 import 'package:ark_module_homepage_prakerja/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ArkPrakerjaBanner extends StatelessWidget {
   final bool isWebinar;
@@ -18,61 +20,34 @@ class ArkPrakerjaBanner extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: 13,
+                horizontal: 12,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  GestureDetector(
-                    onTap: () async {
-                      // SharedPreferences prefs =
-                      //     await SharedPreferences.getInstance();
-                      // final isLogin = prefs.getBool('user_login') ?? false;
-                      // if (isLogin == true) {
-                      //   Get.to(() => VerificationCouponPage(),
-                      //       transition: Transition.rightToLeft,
-                      //       curve: Curves.easeInOut);
-                      // } else {
-                      //   Get.to(() => RegistPage(),
-                      //       transition: Transition.downToUp);
-                      // }
-                    },
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset('assets/images/logo-1-prakerja.svg',
-                            height: 35, fit: BoxFit.fill),
-                        const SizedBox(height: 8),
-                        const Text(
-                          'Tukar Voucher',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xff194476),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: 1,
-                    height: 53,
-                    color: const Color(0xffF1F2F4),
-                  ),
-                  GestureDetector(
-                      onTap: () {
-                        // Get.to(() => CheckCertificatePrakerjaPage());
-                        // Get.to(() => PrakerjaWebView(false),
-                        //     transition: Transition.rightToLeft,
-                        //     curve: Curves.easeInOut);
+                  Flexible(
+                    flex: 1,
+                    child: GestureDetector(
+                      onTap: () async {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        final isLogin = prefs.getBool('user_login') ?? false;
+                        if (isLogin == true) {
+                          Get.toNamed(
+                            '/ark-verification-coupon-prakerja',
+                          );
+                        } else {
+                          Get.toNamed('/signup');
+                        }
                       },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SvgPicture.asset('assets/images/logo-2-prakerja.svg',
+                          SvgPicture.asset('assets/images/logo-1-prakerja.svg',
                               height: 35, fit: BoxFit.fill),
                           const SizedBox(height: 8),
                           const Text(
-                            'Cek Sertifikat',
+                            'Tukar Voucher',
                             style: TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
@@ -80,33 +55,66 @@ class ArkPrakerjaBanner extends StatelessWidget {
                             ),
                           )
                         ],
-                      )),
+                      ),
+                    ),
+                  ),
                   Container(
                     width: 1,
                     height: 53,
                     color: const Color(0xffF1F2F4),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      // Get.to(() => PrakerjaWebView(true),
-                      //     transition: Transition.rightToLeft,
-                      //     curve: Curves.easeInOut);
-                    },
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset('assets/images/logo-3-prakerja.svg',
-                            height: 35, fit: BoxFit.fill),
-                        const SizedBox(height: 8),
-                        const Text(
-                          'Panduan Pelatihan',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xff194476),
-                          ),
-                        )
-                      ],
+                  Flexible(
+                    flex: 1,
+                    child: GestureDetector(
+                        onTap: () {
+                          Get.toNamed("/check-ceritificate-prakerja");
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                                'assets/images/logo-2-prakerja.svg',
+                                height: 35,
+                                fit: BoxFit.fill),
+                            const SizedBox(height: 8),
+                            const Text(
+                              'Cek Sertifikat',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xff194476),
+                              ),
+                            )
+                          ],
+                        )),
+                  ),
+                  Container(
+                    width: 1,
+                    height: 53,
+                    color: const Color(0xffF1F2F4),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.toNamed("/prakerja-webview");
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset('assets/images/logo-3-prakerja.svg',
+                              height: 35, fit: BoxFit.fill),
+                          const SizedBox(height: 8),
+                          const Text(
+                            'Panduan Pelatihan',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xff194476),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -123,17 +131,16 @@ class ArkPrakerjaBanner extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () async {
-                    // SharedPreferences prefs =
-                    //     await SharedPreferences.getInstance();
-                    // final isLogin = prefs.getBool('user_login') ?? false;
-                    // if (isLogin == true) {
-                    //   Get.to(() => VerificationCouponPage(),
-                    //       transition: Transition.rightToLeft,
-                    //       curve: Curves.easeInOut);
-                    // } else {
-                    //   Get.to(() => RegistPage(),
-                    //       transition: Transition.downToUp);
-                    // }
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    final isLogin = prefs.getBool('user_login') ?? false;
+                    if (isLogin == true) {
+                      Get.toNamed(
+                        '/ark-verification-coupon-prakerja',
+                      );
+                    } else {
+                      Get.toNamed('/signup');
+                    }
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -160,10 +167,7 @@ class ArkPrakerjaBanner extends StatelessWidget {
                 ),
                 GestureDetector(
                     onTap: () {
-                      // Get.to(() => CheckCertificatePrakerjaPage());
-                      // Get.to(() => PrakerjaWebView(false),
-                      //     transition: Transition.rightToLeft,
-                      //     curve: Curves.easeInOut);
+                      Get.toNamed("/check-ceritificate-prakerja");
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -189,9 +193,7 @@ class ArkPrakerjaBanner extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    // Get.to(() => PrakerjaWebView(true),
-                    //     transition: Transition.rightToLeft,
-                    //     curve: Curves.easeInOut);
+                    Get.toNamed("/prakerja-webview");
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(

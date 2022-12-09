@@ -9,7 +9,6 @@ class ArkHomePagePrakerja extends StatelessWidget {
   ArkHomePagePrakerja({Key? key}) : super(key: key);
 
   final _prakerjaHC = Get.put(ArkHomePagePrakerjaController());
-  // final _dC = Get.put(DirectoryController());
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +18,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
         child: AppBar(
             elevation: 0,
             leading: IconButton(
-                onPressed: () {},
-                // onPressed: () => Get.offNamed(AppRouteName.main),
+                onPressed: () => Get.toNamed('/main'),
                 icon: const Icon(
                   Icons.arrow_back,
                   size: 22,
@@ -33,8 +31,8 @@ class ArkHomePagePrakerja extends StatelessWidget {
                 ),
                 child: IconButton(
                   onPressed: () {
+                    Get.toNamed('/prakerja-search-page');
                     // _dC.firstInit.value = true;
-                    // Get.to(() => PrakerjaSearchPage());
                   },
                   icon: const Icon(
                     Icons.search_outlined,
@@ -247,7 +245,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                 ),
                                 scrollDirection: Axis.horizontal,
                                 itemCount:
-                                    _prakerjaHC.mainEcomNewClasses.length,
+                                    _prakerjaHC.mainEcomNewClassess.length,
                                 itemBuilder: (context, index) {
                                   return SizedBox(
                                     width: 270,
@@ -457,10 +455,9 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                   ),
                                 ),
                                 isOutlinedButton: true,
-                                onPressed: () {},
-                                // onPressed: () => Get.toNamed(
-                                //     AppRouteName.beliDiMarketPlaceWebinar,
-                                //     arguments: _prakerjaHC.ecommSelected.value),
+                                onPressed: () => Get.toNamed(
+                                    '/beli-di-market-place-webinar',
+                                    arguments: _prakerjaHC.ecommSelected.value),
                                 title: 'Lihat Semua Pelatihan',
                                 titleStyle: const TextStyle(
                                   fontSize: 14,
@@ -488,7 +485,10 @@ class ArkHomePagePrakerja extends StatelessWidget {
                             physics: const ScrollPhysics(),
                             shrinkWrap: true,
                             padding: EdgeInsets.zero,
-                            itemCount: 4,
+                            itemCount:
+                                _prakerjaHC.pelatihanTerpopuler.length > 4
+                                    ? 4
+                                    : _prakerjaHC.pelatihanTerpopuler.length,
                             itemBuilder: (context, index) {
                               return Card(
                                 margin: const EdgeInsets.only(bottom: 15),
@@ -505,7 +505,8 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                         bottomLeft: Radius.circular(6),
                                       ),
                                       child: Image.network(
-                                        'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+                                        _prakerjaHC
+                                            .pelatihanTerpopuler[index].image!,
                                         width: 97,
                                         height: 147,
                                         fit: BoxFit.fitHeight,
@@ -545,11 +546,13 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                             const SizedBox(
                                               height: 9,
                                             ),
-                                            const Text(
-                                              'Menerapkan Prinsip Fundamental Desain UI dengan FIGMA untuk Desainer UI/UX',
+                                            Text(
+                                              _prakerjaHC
+                                                  .pelatihanTerpopuler[index]
+                                                  .title!,
                                               maxLines: 3,
                                               overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 10.5,
                                                 fontWeight: FontWeight.w700,
                                                 color: Color(0xff06284F),
@@ -561,18 +564,21 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                             Row(
                                               children: [
                                                 Row(
-                                                  children: const [
-                                                    Icon(
+                                                  children: [
+                                                    const Icon(
                                                       Icons.star,
                                                       color: Color(0xffFAB400),
                                                       size: 11,
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       width: 4,
                                                     ),
                                                     Text(
-                                                      '4.9',
-                                                      style: TextStyle(
+                                                      _prakerjaHC
+                                                          .pelatihanTerpopuler[
+                                                              index]
+                                                          .rating!,
+                                                      style: const TextStyle(
                                                         fontSize: 10,
                                                         fontWeight:
                                                             FontWeight.w500,
@@ -597,6 +603,19 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                                     ),
                                                     const Text(
                                                       '890',
+                                                      style: TextStyle(
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color:
+                                                            Color(0xff194476),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 7,
+                                                    ),
+                                                    const Text(
+                                                      'siswa',
                                                       style: TextStyle(
                                                         fontSize: 10,
                                                         fontWeight:
@@ -755,6 +774,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
+                          // FOR CARA MENGIKUTI PELATIHAN
                           const CaraMengikutiPelatihan(),
                           const SizedBox(
                             height: 47,
@@ -771,6 +791,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
+                          // FOR CARA MENYELESAIKAN PELATIHAN
                           Stack(
                             children: [
                               Positioned(

@@ -96,7 +96,7 @@ class AboutPrakerjaSection extends StatelessWidget {
                         fontSize: 11,
                         fontWeight: FontWeight.w400,
                       ),
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.start,
                     ),
                   ),
                 ],
@@ -156,15 +156,22 @@ class AboutPrakerjaSection extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: ElevatedButton(
-                        onPressed: () => launch('https://www.prakerja.go.id/',
-                            forceWebView: true, enableJavaScript: true),
+                        onPressed: () => launchUrl(
+                          Uri.parse(
+                            'https://www.prakerja.go.id/',
+                          ),
+                          mode: LaunchMode.externalApplication,
+                          webViewConfiguration: const WebViewConfiguration(
+                            enableJavaScript: true,
+                          ),
+                        ),
                         style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.zero,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20))),
                         child: Container(
                           decoration: BoxDecoration(
-                              color: kPrimaryOrange1,
+                              color: const Color(0xffFF8017),
                               borderRadius: BorderRadius.circular(4.91)),
                           height: 50,
                           alignment: Alignment.center,
@@ -213,21 +220,27 @@ class AboutPrakerjaSection extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 30),
-                Image.asset(
-                  'assets/images/icon-prakerja2.png',
-                  height: 40,
-                  width: 40,
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  'Program Kartu Prakerja merupakan program ramah difabel. Difabel dianjurkan untuk mendaftar dan mengikuti Program Kartu Prakerja.',
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      fontFamily: 'SourceSansPro',
-                      color: kNewBlack3,
-                      height: 1.4,
-                      fontSize: 13),
-                  textAlign: TextAlign.center,
+                Row(
+                  children: [
+                    Image.asset(
+                      'assets/images/icon-prakerja2.png',
+                      height: 40,
+                      width: 40,
+                    ),
+                    const SizedBox(width: 10),
+                    const Expanded(
+                      child: Text(
+                        'Program Kartu Prakerja merupakan program ramah difabel. Difabel dianjurkan untuk mendaftar dan mengikuti Program Kartu Prakerja.',
+                        style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                            fontFamily: 'SourceSansPro',
+                            color: kNewBlack3,
+                            height: 1.4,
+                            fontSize: 13),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 40),
                 //Syarat mendaftar
@@ -245,8 +258,10 @@ class AboutPrakerjaSection extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: ElevatedButton(
-                        onPressed: () => launch('https://www.prakerja.go.id/',
-                            forceWebView: true, enableJavaScript: true),
+                        onPressed: () => launchUrl(
+                          Uri.parse('https://www.prakerja.go.id/'),
+                          // forceWebView: true, enableJavaScript: true,
+                        ),
                         style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.zero,
                             shape: RoundedRectangleBorder(

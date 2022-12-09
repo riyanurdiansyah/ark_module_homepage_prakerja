@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:ark_module_homepage_prakerja/src/core/exception_handling.dart';
 import 'package:ark_module_homepage_prakerja/src/data/datasources/remote/ark_home_remote_datasources.dart';
+import 'package:ark_module_homepage_prakerja/src/data/dto/ark_all_ecom_dto.dart';
 import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_ecom_prakerja_entity.dart';
 import 'package:ark_module_homepage_prakerja/src/core/error/failures.dart';
 import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_prakerja_ecom_lumen_entity.dart';
@@ -43,6 +44,19 @@ class ArkHomeRepositoryImpl implements ArkHomeRepository {
       return Right(response);
     } catch (e) {
       log("ERROR REPO IMPL HOME REPO FETCH SLIDER PRAKERJA: ${e.toString()}");
+      return ExceptionHandleResponse.execute(e);
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<AllEcomPrakerjaDto>>>
+      fetchPelatihanTerpopuler() async {
+    try {
+      final response = await datasources.fetchPelatihanTerpopuler();
+      return Right(response);
+    } catch (e) {
+      log("ERROR REPO IMPL HOME REPO FETCH PELATIHAN TERPOPULER: ${e.toString()}");
+
       return ExceptionHandleResponse.execute(e);
     }
   }

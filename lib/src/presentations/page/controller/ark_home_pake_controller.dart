@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:ark_module_homepage_prakerja/src/core/exception_handling.dart';
 import 'package:ark_module_homepage_prakerja/src/data/datasources/remote/ark_home_remote_datasources_impl.dart';
+import 'package:ark_module_homepage_prakerja/src/data/dto/ark_all_ecom_dto.dart';
 import 'package:ark_module_homepage_prakerja/src/data/repositories/ark_home_impl_repository.dart';
 import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_ecom_prakerja_entity.dart';
 import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_prakerja_ecom_lumen_entity.dart';
@@ -20,14 +21,17 @@ class ArkHomePagePrakerjaController extends GetxController {
   RxBool get isLoadingSliderPrakerja => _isLoadingSliderPrakerja;
 
   // FOR ECOM
-  RxList<HomeOneEcomEntity> homeEcom = <HomeOneEcomEntity>[].obs;
-  RxList<HomeOneEcomEntity> listHomeEcom = <HomeOneEcomEntity>[].obs;
+  final RxList<HomeOneEcomEntity> _homeEcom = <HomeOneEcomEntity>[].obs;
+  final RxList<HomeOneEcomEntity> _listHomeEcom = <HomeOneEcomEntity>[].obs;
   Rx<int> ecommSelected = 99.obs;
 
-  RxList<AllEcomPrakerjaEntity> mainEcomNewClasses =
+  final RxList<AllEcomPrakerjaEntity> _mainEcomNewClasses =
       <AllEcomPrakerjaEntity>[].obs;
-  // RxList<PrakerjaEcomClassLumenEntity> allEcomNewClasses =
-  //     <PrakerjaEcomClassLumenEntity>[].obs;
+  RxList<AllEcomPrakerjaEntity> get mainEcomNewClassess => _mainEcomNewClasses;
+
+  final RxList<AllEcomPrakerjaDto> _pelatihanTerpopuler =
+      <AllEcomPrakerjaDto>[].obs;
+  RxList<AllEcomPrakerjaDto> get pelatihanTerpopuler => _pelatihanTerpopuler;
 
   RxList<dynamic> mainList = <dynamic>[].obs;
   RxList<HomeOneEcomEntity> tokopediaList = <HomeOneEcomEntity>[].obs;
@@ -48,11 +52,6 @@ class ArkHomePagePrakerjaController extends GetxController {
   late ScrollController scrollControllerPage;
 
   RxList<Widget> slidersFromBackend = <Widget>[].obs;
-  // RxList<String> tempSliders = <String>[
-  //   'https://images.unsplash.com/photo-1664575198263-269a022d6e14?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-  //   'https://images.unsplash.com/photo-1664575197229-3bbebc281874?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-  //   'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-  // ].obs;
 
   @override
   void onInit() async {
@@ -100,6 +99,17 @@ class ArkHomePagePrakerjaController extends GetxController {
     await _changeLoadingSlider(false);
   }
 
+  Future<List<AllEcomPrakerjaDto>> fetchPelatihanTerpopuler() async {
+    final response = await _useCases.fetchPelatihanTerpopuler();
+    response.fold((l) {
+      log('RESPONSE ERROR FETCH PELATIHAN TERPOPULER $l');
+      return ExceptionHandle.execute(l);
+    }, (r) {
+      _pelatihanTerpopuler.value = r;
+    });
+    return _pelatihanTerpopuler;
+  }
+
   Future<List<AllEcomPrakerjaEntity>> fetchAllNewEcom() async {
     _changeLoadingEcom(true);
     final response = await _useCases.fetchNewAllEcom();
@@ -107,11 +117,11 @@ class ArkHomePagePrakerjaController extends GetxController {
       log('RESPONSE ERROR FETCH ALL NEW ECOM $l');
       return ExceptionHandle.execute(l);
     }, (r) {
-      log('RESPONSE SUCCESS FETCH ALL NEW ECOM $r');
-      return mainEcomNewClasses.value = r;
+      log('RESPONSE SUCCESS FETCH ALL NEW ECOM ${r.length}');
+      return _mainEcomNewClasses.value = r;
     });
     _changeLoadingEcom(false);
-    return mainEcomNewClasses;
+    return _mainEcomNewClasses;
   }
 
   // FETCH ECOM
@@ -121,59 +131,20 @@ class ArkHomePagePrakerjaController extends GetxController {
     response.fold((l) {
       return ExceptionHandle.execute(l);
     }, (r) {
-      homeEcom.value = r;
-      listHomeEcom.assignAll(homeEcom);
+      _homeEcom.value = r;
+      _listHomeEcom.assignAll(_homeEcom);
       if (ecom == 'tokopedia') {
-        tokopediaList.assignAll(listHomeEcom);
+        tokopediaList.assignAll(_listHomeEcom);
       } else if (ecom == 'bukalapak') {
-        bukalapakList.assignAll(listHomeEcom);
+        bukalapakList.assignAll(_listHomeEcom);
       } else if (ecom == 'sekolahmu') {
-        sekolahmuList.assignAll(listHomeEcom);
+        sekolahmuList.assignAll(_listHomeEcom);
       } else if (ecom == 'pintaria') {
-        pintariaList.assignAll(listHomeEcom);
+        pintariaList.assignAll(_listHomeEcom);
       } else {
-        pijarMahirList.assignAll(listHomeEcom);
+        pijarMahirList.assignAll(_listHomeEcom);
       }
     });
     _changeLoadingEcom(false);
   }
-
-  // void addSlider() {
-  //   _changeLoading(true);
-  //   slidersFromBackend.assignAll([
-  //     for (int i = 0; i < tempSliders.length; i++)
-  //       GestureDetector(
-  //         // onTap: () => launchUrl(Uri.parse(cacheData[i]['url']),
-  //         //     mode: LaunchMode.externalApplication),
-
-  //         // onTap: cacheData[i]['id'] == '32'
-  //         //     ? () => Get.to(() => const ClassCoinPage())
-  //         //     : cacheData[i]['hyperlink'] != ""
-  //         //         ? () => launchUrl(Uri.parse(cacheData[i]['hyperlink']),
-  //         //             mode: LaunchMode.externalApplication)
-  //         //         : () {},
-  //         child: SizedBox(
-  //           height: 170,
-  //           width: Get.size.width - 34,
-  //           child: ClipRRect(
-  //             borderRadius: BorderRadius.circular(6),
-  //             child: Image.network(
-  //               tempSliders[i],
-  //               fit: BoxFit.fill,
-  //               width: double.infinity,
-  //               errorBuilder: (_, __, ___) {
-  //                 return ErrorNetworkImageWidgets(
-  //                   child: Image.asset(
-  //                     'assets/images/logo-arkademi.png',
-  //                     fit: BoxFit.fill,
-  //                   ),
-  //                 );
-  //               },
-  //             ),
-  //           ),
-  //         ),
-  //       )
-  //   ]);
-  //   _changeLoading(false);
-  // }
 }

@@ -1,3 +1,4 @@
+import 'package:ark_module_homepage_prakerja/src/data/dto/ark_all_ecom_dto.dart';
 import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_ecom_prakerja_entity.dart';
 import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_prakerja_ecom_lumen_entity.dart';
 import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_slider_prakerja_entity.dart';
@@ -19,4 +20,8 @@ class ArkUseCases {
 
   Future<Either<Failure, SliderPrakerjaEntity>> fetchSliderPrakerja() async =>
       await repository.fetchSliderPrakerja();
+
+  Future<Either<Failure, List<AllEcomPrakerjaDto>>>
+      fetchPelatihanTerpopuler() async =>
+          await repository.fetchPelatihanTerpopuler();
 }

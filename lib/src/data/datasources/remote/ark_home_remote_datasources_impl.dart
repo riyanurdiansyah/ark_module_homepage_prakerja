@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:ark_module_homepage_prakerja/ark_module_homepage_prakerja.dart';
 import 'package:ark_module_homepage_prakerja/src/data/datasources/remote/ark_home_remote_datasources.dart';
+import 'package:ark_module_homepage_prakerja/src/data/dto/ark_all_ecom_dto.dart';
 import 'package:ark_module_homepage_prakerja/src/data/dto/ark_slider_prakerja_dto.dart';
 import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_ecom_prakerja_entity.dart';
 import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_prakerja_ecom_lumen_entity.dart';
@@ -22,17 +24,14 @@ class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
     );
     List<HomeOneEcomEntity> oneEcom = [];
     int code = response.statusCode ?? 500;
+
     if (code == 200) {
-      oneEcom.add(HomeOneEcomEntity.fromJson(response.data));
+      final jsonResponse = jsonDecode(jsonEncode(response.data));
+      for (int i = 0; i < jsonResponse.length; i++) {
+        oneEcom.add(HomeOneEcomEntity.fromJson(jsonResponse[i]));
+      }
 
-      // for (var element in response.data) {
-      //   log('ECOM $element');
-      //   log('ECOM RESPONSE ${response.data}');
-
-      //   oneEcom.add(HomeOneEcomEntity.fromJson(element));
-      //   log('FROM ONE ECOM ${oneEcom.length}');
-      //   return oneEcom;
-      // }
+      log('FROM ONE ECOM ${oneEcom.length}');
       return oneEcom;
     }
     return ExceptionHandleResponseAPI.execute(
@@ -48,13 +47,16 @@ class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
       '$prakerjaUrlStaging/api/v1/prakerja/get_prakerja_marketplace_course',
       options: dioOptions,
     );
-    List<AllEcomPrakerjaEntity> allEcom = [];
+    List<AllEcomPrakerjaDto> allEcom = [];
     int code = response.statusCode ?? 500;
     if (code == 200) {
-      for (var data in response.data) {
-        allEcom.add(AllEcomPrakerjaEntity.fromJson(data));
-        return allEcom;
+      final jsonResponse = jsonDecode(jsonEncode(response.data));
+      for (int i = 0; i < jsonResponse.length; i++) {
+        allEcom.add(AllEcomPrakerjaDto.fromJson(jsonResponse[i]));
       }
+
+      log('FROM ALL ECOM ${allEcom.length}');
+      return allEcom;
     }
     return ExceptionHandleResponseAPI.execute(
       code,
@@ -78,6 +80,30 @@ class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
       code,
       response,
       'Error Fetch Slider... failed connect to server',
+    );
+  }
+
+  @override
+  Future<List<AllEcomPrakerjaDto>> fetchPelatihanTerpopuler() async {
+    final response = await dio.get(
+      "$prakerjaUrlStaging/api/v1/prakerja/get_prakerja_popular_course",
+      options: dioOptions,
+    );
+    List<AllEcomPrakerjaDto> pelatihanTerpopuler = [];
+
+    int code = response.statusCode ?? 500;
+    if (code == 200) {
+      final jsonResponse = jsonDecode(jsonEncode(response.data));
+
+      for (int i = 0; i < jsonResponse.length; i++) {
+        pelatihanTerpopuler.add(AllEcomPrakerjaDto.fromJson(jsonResponse[i]));
+        return pelatihanTerpopuler;
+      }
+    }
+    return ExceptionHandleResponseAPI.execute(
+      code,
+      response,
+      'Error Fetch Pelatihan Terpouler... failed connect to server',
     );
   }
 }

@@ -121,10 +121,10 @@ class CaraMengikutiPelatihan extends StatelessWidget {
                 const SizedBox(
                   width: 15,
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: const Expanded(
-                    child: Text(
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    child: const Text(
                       'Buat akun Arkademi',
                       style: TextStyle(
                         fontSize: 12.5,
@@ -255,12 +255,12 @@ class CaraMengikutiPelatihan extends StatelessWidget {
                 const SizedBox(
                   width: 15,
                 ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 10,
-                  ),
-                  child: const Expanded(
-                    child: Text(
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.only(
+                      top: 10,
+                    ),
+                    child: const Text(
                       'Pilih satu sesi yang ingin kamu ikuti',
                       style: TextStyle(
                         fontSize: 12.5,
