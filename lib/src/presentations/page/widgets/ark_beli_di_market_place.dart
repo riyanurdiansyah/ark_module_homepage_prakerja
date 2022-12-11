@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:ark_module_homepage_prakerja/src/presentations/page/controller/ark_home_pake_controller.dart';
@@ -54,6 +55,7 @@ class _ArkBeliDiMarketPlaceWebinarState
 
   @override
   Widget build(BuildContext context) {
+    log(args.toString());
     return Scaffold(
       appBar: AppBar(
         bottom: PreferredSize(

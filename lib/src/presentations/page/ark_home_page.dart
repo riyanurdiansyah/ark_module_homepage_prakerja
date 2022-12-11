@@ -456,8 +456,9 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                 ),
                                 isOutlinedButton: true,
                                 onPressed: () => Get.toNamed(
-                                    '/beli-di-market-place-webinar',
-                                    arguments: _prakerjaHC.ecommSelected.value),
+                                  '/beli-di-market-place-webinar',
+                                  arguments: _prakerjaHC.ecommSelected.value,
+                                ),
                                 title: 'Lihat Semua Pelatihan',
                                 titleStyle: const TextStyle(
                                   fontSize: 14,

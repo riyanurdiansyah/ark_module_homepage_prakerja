@@ -13,6 +13,7 @@ export 'src/presentations/page/widgets/ark_about_section.dart';
 export 'src/presentations/page/widgets/ark_cara_mengikuti_pelatihan.dart';
 export 'src/presentations/page/widgets/ark_check_box_with_text.dart';
 export 'src/presentations/page/widgets/ark_prakerja_banner.dart';
+export 'src/presentations/page/widgets/ark_beli_di_market_place.dart';
 
 export 'utils/app_color.dart';
 export 'utils/constants.dart';
