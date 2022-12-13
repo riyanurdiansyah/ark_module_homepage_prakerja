@@ -19,7 +19,8 @@ class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
   @override
   Future<List<HomeOneEcomEntity>> fetchOneEcom(String ecom) async {
     final response = await dio.get(
-      '$prakerjaUrl/wp-json/api/arkademi/prakerja-marketplace/$ecom',
+      // '$prakerjaUrl/wp-json/api/arkademi/prakerja-marketplace/$ecom',
+      '$prakerjaUrlStaging/api/v1/prakerja/get_prakerja_marketplace_course?mp_name=$ecom',
       options: dioOptions,
     );
     List<HomeOneEcomEntity> oneEcom = [];
@@ -28,6 +29,7 @@ class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
     if (code == 200) {
       final jsonResponse = jsonDecode(jsonEncode(response.data));
       for (int i = 0; i < jsonResponse.length; i++) {
+        log('ONE ECOM $jsonResponse');
         oneEcom.add(HomeOneEcomEntity.fromJson(jsonResponse[i]));
       }
 

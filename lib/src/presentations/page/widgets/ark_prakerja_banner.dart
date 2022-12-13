@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ark_module_homepage_prakerja/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,6 +31,7 @@ class ArkPrakerjaBanner extends StatelessWidget {
                     flex: 1,
                     child: GestureDetector(
                       onTap: () async {
+                        log('TUKAR VOUCHER PRESSED');
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
                         final isLogin = prefs.getBool('user_login') ?? false;
