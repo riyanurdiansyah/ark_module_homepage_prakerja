@@ -53,11 +53,9 @@ class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
 
     if (code == 200) {
       final jsonResponse = jsonDecode(jsonEncode(response.data));
-
       for (int i = 0; i < jsonResponse.length; i++) {
         allEcom.add(AllEcomPrakerjaEntity.fromJson(jsonResponse[i]));
       }
-
       return allEcom;
     }
     return ExceptionHandleResponseAPI.execute(
@@ -74,7 +72,6 @@ class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
       options: dioOptions,
     );
     int code = response.statusCode ?? 500;
-    log("DATA CEK : ${response.data}");
     if (code == 200) {
       return SliderPrakerjaDto.fromJson(response.data);
     }
@@ -92,15 +89,13 @@ class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
       options: dioOptions,
     );
     List<AllEcomPrakerjaDto> pelatihanTerpopuler = [];
-
     int code = response.statusCode ?? 500;
     if (code == 200) {
       final jsonResponse = jsonDecode(jsonEncode(response.data));
-
       for (int i = 0; i < jsonResponse.length; i++) {
         pelatihanTerpopuler.add(AllEcomPrakerjaDto.fromJson(jsonResponse[i]));
-        return pelatihanTerpopuler;
       }
+      return pelatihanTerpopuler;
     }
     return ExceptionHandleResponseAPI.execute(
       code,

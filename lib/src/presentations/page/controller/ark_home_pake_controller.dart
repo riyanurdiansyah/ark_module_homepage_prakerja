@@ -61,6 +61,7 @@ class ArkHomePagePrakerjaController extends GetxController {
     await _setup();
     fetchAllNewEcom();
     fetchSliderPrakerja();
+    fetchPelatihanTerpopuler();
     await _changeLoading(false);
   }
 
@@ -118,7 +119,6 @@ class ArkHomePagePrakerjaController extends GetxController {
       log('RESPONSE ERROR FETCH ALL NEW ECOM $l');
       return ExceptionHandle.execute(l);
     }, (r) {
-      log('RESPONSE SUCCESS FETCH ALL NEW ECOM ${r.length}');
       return _mainEcomNewClasses.value = r;
     });
     _changeLoadingEcom(false);
