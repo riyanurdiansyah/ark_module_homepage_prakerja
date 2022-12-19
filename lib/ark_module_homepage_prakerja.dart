@@ -7,6 +7,9 @@ export 'src/core/exception.dart';
 export 'src/core/exception_handling.dart';
 export 'src/core/interceptor.dart';
 
+// CONTROLLER
+export 'src/presentations/page/controller/ark_home_pake_controller.dart';
+
 // SRC/PRESENTATIONS
 export 'src/presentations/page/ark_home_page.dart';
 export 'src/presentations/page/widgets/ark_about_section.dart';

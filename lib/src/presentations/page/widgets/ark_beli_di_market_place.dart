@@ -370,7 +370,7 @@ class _ArkBeliDiMarketPlaceWebinarState
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         width: Get.width,
-        height: 60,
+        height: Platform.isIOS ? 77 : 60,
         child: Obx(() => Column(
               children: [
                 Stack(
@@ -379,24 +379,35 @@ class _ArkBeliDiMarketPlaceWebinarState
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        for (int i = 0;
-                            i <
-                                (
-                                    // _rcC.isChecking.value == "true" &&
-                                    //       Platform.isIOS
-                                    //   ? 1
-                                    //   :
-                                    _newNavbarPrakerja.length);
-                            i++)
+                        for (int i = 0; i < (_newNavbarPrakerja.length); i++)
                           InkWell(
-                            onTap: () async {
-                              _prakerjaHc.ecommSelected.value = i;
+                            onTap: () {
+                              _prakerjaHc.indexBeliDiMarketPlace.value = i;
+                              if (i == 1) {
+                                _prakerjaHc.indexBeliDiMarketPlace.value = 1;
+                                Get.offAllNamed(
+                                  '/main-prakerja',
+                                  arguments: {
+                                    'from': 'arkBeliDiMarketPlace',
+                                    'page': _prakerjaHc
+                                        .indexBeliDiMarketPlace.value,
+                                  },
+                                );
+                              }
+                              if (i == 2) {
+                                _prakerjaHc.indexBeliDiMarketPlace.value = 2;
+                                Get.offAllNamed(
+                                  '/main-prakerja',
+                                  arguments: {
+                                    'from': 'arkBeliDiMarketPlace',
+                                    'page': _prakerjaHc
+                                        .indexBeliDiMarketPlace.value,
+                                  },
+                                );
+                              }
                             },
                             child: Container(
                               padding: i == 0 && Platform.isAndroid
-                                  //  &&
-                                  //         (_rcC.isChecking.value == "false" &&
-                                  //             Platform.isIOS)
                                   ? const EdgeInsets.only(left: 50, top: 9)
                                   : i == 2
                                       ? const EdgeInsets.only(right: 50, top: 9)
@@ -408,7 +419,8 @@ class _ArkBeliDiMarketPlaceWebinarState
                               child: Column(
                                 children: [
                                   Image.asset(
-                                    _prakerjaHc.ecommSelected.value == i
+                                    _prakerjaHc.indexBeliDiMarketPlace.value ==
+                                            i
                                         ? _newNavbarPrakerja[i]['icon_select']
                                         : _newNavbarPrakerja[i]
                                             ['icon_deselect']!,
@@ -418,11 +430,13 @@ class _ArkBeliDiMarketPlaceWebinarState
                                   Text(_newNavbarPrakerja[i]['text'],
                                       style: TextStyle(
                                         fontSize: 9,
-                                        color:
-                                            _prakerjaHc.ecommSelected.value == i
-                                                ? const Color(0xff1C1D20)
-                                                : const Color(0xff939598),
-                                        fontWeight: FontWeight.w500,
+                                        color: _prakerjaHc
+                                                    .indexBeliDiMarketPlace
+                                                    .value ==
+                                                i
+                                            ? const Color(0xff1C1D20)
+                                            : const Color(0xff939598),
+                                        fontWeight: FontWeight.w700,
                                       )),
                                 ],
                               ),
@@ -433,7 +447,8 @@ class _ArkBeliDiMarketPlaceWebinarState
                     Positioned.fill(
                       top: -15,
                       child: GestureDetector(
-                        onTap: () => _prakerjaHc.ecommSelected.value = 1,
+                        onTap: () =>
+                            _prakerjaHc.indexBeliDiMarketPlace.value = 1,
                         child: Align(
                             alignment: Alignment.topCenter,
                             child: ClipOval(

@@ -1,5 +1,4 @@
 import 'package:ark_module_homepage_prakerja/ark_module_homepage_prakerja.dart';
-import 'package:ark_module_homepage_prakerja/src/presentations/page/controller/ark_home_pake_controller.dart';
 import 'package:ark_module_homepage_prakerja/src/presentations/page/widgets/ark_slider_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -455,10 +454,13 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                   ),
                                 ),
                                 isOutlinedButton: true,
-                                onPressed: () => Get.toNamed(
-                                  '/beli-di-market-place-webinar',
-                                  arguments: _prakerjaHC.ecommSelected.value,
-                                ),
+                                onPressed: () {
+                                  _prakerjaHC.indexBeliDiMarketPlace.value = 0;
+                                  Get.toNamed(
+                                    '/beli-di-market-place-webinar',
+                                    arguments: _prakerjaHC.ecommSelected.value,
+                                  );
+                                },
                                 title: 'Lihat Semua Pelatihan',
                                 titleStyle: const TextStyle(
                                   fontSize: 14,

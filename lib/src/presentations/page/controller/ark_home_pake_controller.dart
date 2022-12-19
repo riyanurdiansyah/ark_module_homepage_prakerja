@@ -53,6 +53,10 @@ class ArkHomePagePrakerjaController extends GetxController {
 
   RxList<Widget> slidersFromBackend = <Widget>[].obs;
 
+  // FOR INDEXING BOTTOM NAVBAR ON BELI DI MARKETPLACE PILIHANMU
+  final Rx<int> _indexBeliDiMarketPlace = 0.obs;
+  Rx<int> get indexBeliDiMarketPlace => _indexBeliDiMarketPlace;
+
   @override
   void onInit() async {
     _changeLoading(true);
