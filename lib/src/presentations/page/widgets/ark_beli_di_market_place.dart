@@ -383,29 +383,12 @@ class _ArkBeliDiMarketPlaceWebinarState
                           InkWell(
                             onTap: () {
                               _prakerjaHc.indexBeliDiMarketPlace.value = i;
-                              // if (i == 1) {
-                              //   _prakerjaHc.indexBeliDiMarketPlace.value = 1;
-                              //   Get.offAllNamed(
-                              //     '/main-prakerja',
-                              //     arguments: {
-                              //       'from': 'arkBeliDiMarketPlace',
-                              //       'page': _prakerjaHc
-                              //           .indexBeliDiMarketPlace.value,
-                              //     },
-                              //   );
-                              // }
-                              // if (i == 2) {
-                              //   _prakerjaHc.indexBeliDiMarketPlace.value = 2;
-                              //   Get.offAllNamed(
-                              //     '/main-prakerja',
-                              //     arguments: {
-                              //       'from': 'arkBeliDiMarketPlace',
-                              //       'page': _prakerjaHc
-                              //           .indexBeliDiMarketPlace.value,
-                              //     },
-                              //   );
-                              // }
-                              _prakerjaHc.indexBeliDiMarketPlace.value = 1;
+                              if (i == 1) {
+                                _prakerjaHc.indexBeliDiMarketPlace.value = 1;
+                              }
+                              if (i == 2) {
+                                _prakerjaHc.indexBeliDiMarketPlace.value = 2;
+                              }
                               Get.offAllNamed(
                                 '/main-prakerja',
                                 arguments: {
