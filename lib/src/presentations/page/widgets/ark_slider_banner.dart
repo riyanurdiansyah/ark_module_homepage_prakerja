@@ -1,4 +1,3 @@
-import 'package:ark_module_homepage_prakerja/src/presentations/page/controller/ark_home_pake_controller.dart';
 import 'package:ark_module_homepage_prakerja/widgets/error_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
