@@ -86,7 +86,7 @@ class _ArkBeliDiMarketPlaceWebinarState
                                     _prakerjaHc.fetchOneEcom(
                                         marketPlaceWebinar[i]['title']);
                                   }
-                                  _prakerjaHc.mainList.value =
+                                  _prakerjaHc.listHomeEcome.value =
                                       _prakerjaHc.tokopediaList;
                                 }
                                 break;
@@ -96,7 +96,7 @@ class _ArkBeliDiMarketPlaceWebinarState
                                     _prakerjaHc.fetchOneEcom(
                                         marketPlaceWebinar[i]['title']);
                                   }
-                                  _prakerjaHc.mainList.value =
+                                  _prakerjaHc.listHomeEcome.value =
                                       _prakerjaHc.bukalapakList;
                                 }
                                 break;
@@ -107,7 +107,7 @@ class _ArkBeliDiMarketPlaceWebinarState
                                     _prakerjaHc.fetchOneEcom(
                                         marketPlaceWebinar[i]['title']);
                                   }
-                                  _prakerjaHc.mainList.value =
+                                  _prakerjaHc.listHomeEcome.value =
                                       _prakerjaHc.sekolahmuList;
                                 }
                                 break;
@@ -117,7 +117,7 @@ class _ArkBeliDiMarketPlaceWebinarState
                                     _prakerjaHc.fetchOneEcom(
                                         marketPlaceWebinar[i]['title']);
                                   }
-                                  _prakerjaHc.mainList.value =
+                                  _prakerjaHc.listHomeEcome.value =
                                       _prakerjaHc.pijarMahirList;
                                 }
                                 break;
@@ -172,7 +172,7 @@ class _ArkBeliDiMarketPlaceWebinarState
           padding: const EdgeInsets.all(16),
           child: Obx(
             () => _prakerjaHc.isLoadingEcom.value == false &&
-                    _prakerjaHc.mainEcomNewClassess.isEmpty
+                    _prakerjaHc.listHomeEcome.isEmpty
                 ? const Center(child: Text('Tidak ada kelas'))
                 : _prakerjaHc.isLoadingEcom.value == true
                     ? ListView(
@@ -202,7 +202,7 @@ class _ArkBeliDiMarketPlaceWebinarState
                     : ListView.builder(
                         physics: const ScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: _prakerjaHc.mainEcomNewClassess.length,
+                        itemCount: _prakerjaHc.listHomeEcome.length,
                         itemBuilder: (context, i) {
                           return Card(
                             shape: RoundedRectangleBorder(
@@ -240,7 +240,6 @@ class _ArkBeliDiMarketPlaceWebinarState
                                             horizontal: 11,
                                             vertical: 3,
                                           ),
-                                          // width: 127,
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(2),

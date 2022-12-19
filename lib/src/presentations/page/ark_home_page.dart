@@ -131,7 +131,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                             _prakerjaHC.fetchOneEcom(
                                                 marketPlaceWebinar[i]['title']);
                                           }
-                                          _prakerjaHC.mainList.value =
+                                          _prakerjaHC.listHomeEcome.value =
                                               _prakerjaHC.tokopediaList;
                                         }
                                         break;
@@ -142,7 +142,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                             _prakerjaHC.fetchOneEcom(
                                                 marketPlaceWebinar[i]['title']);
                                           }
-                                          _prakerjaHC.mainList.value =
+                                          _prakerjaHC.listHomeEcome.value =
                                               _prakerjaHC.bukalapakList;
                                         }
                                         break;
@@ -154,7 +154,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                             _prakerjaHC.fetchOneEcom(
                                                 marketPlaceWebinar[i]['title']);
                                           }
-                                          _prakerjaHC.mainList.value =
+                                          _prakerjaHC.listHomeEcome.value =
                                               _prakerjaHC.sekolahmuList;
                                         }
                                         break;
@@ -165,7 +165,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                             _prakerjaHC.fetchOneEcom(
                                                 marketPlaceWebinar[i]['title']);
                                           }
-                                          _prakerjaHC.mainList.value =
+                                          _prakerjaHC.listHomeEcome.value =
                                               _prakerjaHC.pijarMahirList;
                                         }
                                         break;
@@ -243,8 +243,9 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                   horizontal: 16,
                                 ),
                                 scrollDirection: Axis.horizontal,
-                                itemCount:
-                                    _prakerjaHC.mainEcomNewClassess.length,
+                                itemCount: _prakerjaHC.listHomeEcome.isEmpty
+                                    ? _prakerjaHC.mainEcomNewClassess.length
+                                    : _prakerjaHC.listHomeEcome.length,
                                 itemBuilder: (context, index) {
                                   return SizedBox(
                                     width: 270,

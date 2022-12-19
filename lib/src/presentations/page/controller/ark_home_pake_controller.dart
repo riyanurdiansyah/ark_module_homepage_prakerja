@@ -23,8 +23,8 @@ class ArkHomePagePrakerjaController extends GetxController {
   // FOR ECOM
   final RxList<HomeOneEcomEntity> _homeEcom = <HomeOneEcomEntity>[].obs;
   final RxList<HomeOneEcomEntity> _listHomeEcom = <HomeOneEcomEntity>[].obs;
+  RxList<HomeOneEcomEntity> get listHomeEcome => _listHomeEcom;
   Rx<int> ecommSelected = 99.obs;
-
   final RxList<AllEcomPrakerjaEntity> _mainEcomNewClasses =
       <AllEcomPrakerjaEntity>[].obs;
   RxList<AllEcomPrakerjaEntity> get mainEcomNewClassess => _mainEcomNewClasses;
@@ -33,7 +33,6 @@ class ArkHomePagePrakerjaController extends GetxController {
       <AllEcomPrakerjaDto>[].obs;
   RxList<AllEcomPrakerjaDto> get pelatihanTerpopuler => _pelatihanTerpopuler;
 
-  RxList<dynamic> mainList = <dynamic>[].obs;
   RxList<HomeOneEcomEntity> tokopediaList = <HomeOneEcomEntity>[].obs;
   RxList<HomeOneEcomEntity> bukalapakList = <HomeOneEcomEntity>[].obs;
   RxList<HomeOneEcomEntity> sekolahmuList = <HomeOneEcomEntity>[].obs;
@@ -50,8 +49,6 @@ class ArkHomePagePrakerjaController extends GetxController {
   late ArkHomeRepositoryImpl _repository;
   late ArkHomeRemoteDatasourcesImpl _dataSource;
   late ScrollController scrollControllerPage;
-
-  RxList<Widget> slidersFromBackend = <Widget>[].obs;
 
   // FOR INDEXING BOTTOM NAVBAR ON BELI DI MARKETPLACE PILIHANMU
   final Rx<int> _indexBeliDiMarketPlace = 0.obs;
@@ -135,6 +132,7 @@ class ArkHomePagePrakerjaController extends GetxController {
     response.fold((l) {
       return ExceptionHandle.execute(l);
     }, (r) {
+      _listHomeEcom.value = [];
       _homeEcom.value = r;
       _listHomeEcom.assignAll(_homeEcom);
       if (ecom == 'tokopedia') {
