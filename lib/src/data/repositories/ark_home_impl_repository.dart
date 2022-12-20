@@ -22,7 +22,7 @@ class ArkHomeRepositoryImpl implements ArkHomeRepository {
       return Right(responseEcom);
     } catch (e) {
       log("ERROR REPO IMPL HOME FETCH ONE ECOM: ${e.toString()}");
-      return ExceptionHandleResponse.execute(e);
+      return Left(ExceptionHandleResponse().execute(e));
     }
   }
 
@@ -33,7 +33,7 @@ class ArkHomeRepositoryImpl implements ArkHomeRepository {
       return Right(response);
     } catch (e) {
       log("ERROR REPO IMPL HOME REPO FETCH ALL NEW ECOM: ${e.toString()}");
-      return ExceptionHandleResponse.execute(e);
+      return Left(ExceptionHandleResponse().execute(e));
     }
   }
 
@@ -44,7 +44,7 @@ class ArkHomeRepositoryImpl implements ArkHomeRepository {
       return Right(response);
     } catch (e) {
       log("ERROR REPO IMPL HOME REPO FETCH SLIDER PRAKERJA: ${e.toString()}");
-      return ExceptionHandleResponse.execute(e);
+      return Left(ExceptionHandleResponse().execute(e));
     }
   }
 
@@ -57,7 +57,7 @@ class ArkHomeRepositoryImpl implements ArkHomeRepository {
     } catch (e) {
       log("ERROR REPO IMPL HOME REPO FETCH PELATIHAN TERPOPULER: ${e.toString()}");
 
-      return ExceptionHandleResponse.execute(e);
+      return Left(ExceptionHandleResponse().execute(e));
     }
   }
 }
