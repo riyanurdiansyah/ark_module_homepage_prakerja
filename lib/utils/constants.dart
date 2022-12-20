@@ -1,4 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
+
+// OUTPUT Rp xxx.xxx
+final currencyFormatter = NumberFormat.currency(
+  locale: "id_ID",
+  symbol: "Rp ",
+  decimalDigits: 0,
+);
 
 Options get dioOptions => Options(headers: {
       "Accept": "*/*",

@@ -236,6 +236,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                 child: CircularProgressIndicator(),
                               ),
                             )
+                          // BELI DI MARKET PLACE
                           : SizedBox(
                               height: 290,
                               child: ListView.builder(
@@ -247,176 +248,235 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                     ? _prakerjaHC.mainEcomNewClassess.length
                                     : _prakerjaHC.listHomeEcome.length,
                                 itemBuilder: (context, index) {
-                                  return SizedBox(
-                                    width: 270,
-                                    child: Card(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(7),
-                                      ),
-                                      elevation: 3,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            height: 110,
-                                            width: 270,
-                                            decoration: const BoxDecoration(
-                                              color: Colors.grey,
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(7),
-                                                topRight: Radius.circular(7),
+                                  return InkWell(
+                                    onTap: () => Get.toNamed('/class-prakerja',
+                                        arguments: _prakerjaHC
+                                            .mainEcomNewClassess[index].id),
+                                    child: SizedBox(
+                                      width: 270,
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(7),
+                                        ),
+                                        elevation: 3,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              height: 110,
+                                              width: 270,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey,
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  topLeft: Radius.circular(7),
+                                                  topRight: Radius.circular(7),
+                                                ),
+                                                image: DecorationImage(
+                                                    image: NetworkImage(
+                                                      _prakerjaHC
+                                                          .mainEcomNewClassess[
+                                                              index]
+                                                          .image!,
+                                                    ),
+                                                    fit: BoxFit.fitWidth),
                                               ),
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            height: 12,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 19),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    horizontal: 11,
-                                                    vertical: 3,
-                                                  ),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            2),
-                                                    color:
-                                                        const Color(0xff234061),
-                                                  ),
-                                                  child: const Text(
-                                                    '28 Nov - 3 Des 2022',
-                                                    style: TextStyle(
-                                                      fontSize: 11,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 15,
-                                                ),
-                                                const Text(
-                                                  'Menerapkan Prinsip Fundamental Desain UI dengan FIGMA untuk Desainer UI/UX',
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Color(0xff06284F),
-                                                  ),
-                                                  maxLines: 3,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                ),
-                                                const SizedBox(
-                                                  height: 14,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Row(
-                                                      children: const [
-                                                        Icon(
-                                                          Icons.star,
-                                                          color:
-                                                              Color(0xffFAB400),
-                                                          size: 11,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 4,
-                                                        ),
-                                                        Text(
-                                                          '4.9',
-                                                          style: TextStyle(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            color: Color(
-                                                                0xff194476),
-                                                            fontFamily:
-                                                                'SourceSansPro',
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 13,
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Image.asset(
-                                                          'assets/images/people_with_rectangle.png',
-                                                          width: 12,
-                                                          height: 12,
-                                                        ),
-                                                        const SizedBox(
-                                                          width: 4,
-                                                        ),
-                                                        const Text(
-                                                          '890 siswa',
-                                                          style: TextStyle(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            color: Color(
-                                                                0xff194476),
-                                                            fontFamily:
-                                                                'SourceSansPro',
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                                const SizedBox(
-                                                  height: 14,
-                                                ),
-                                                Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: const [
-                                                    Text(
-                                                      'Rp. 89.000',
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w800,
-                                                        color:
-                                                            Color(0xff06284F),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 6,
-                                                    ),
-                                                    Text(
-                                                      'Rp. 299.000',
-                                                      style: TextStyle(
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color:
-                                                            Color(0xffE34D46),
-                                                        decoration:
-                                                            TextDecoration
-                                                                .lineThrough,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                const SizedBox(
-                                                  height: 12,
-                                                ),
-                                              ],
+                                            const SizedBox(
+                                              height: 12,
                                             ),
-                                          )
-                                        ],
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 19),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                      horizontal: 11,
+                                                      vertical: 3,
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              2),
+                                                      color: const Color(
+                                                          0xff234061),
+                                                    ),
+                                                    child: const Text(
+                                                      // TODO CHANGE DATE OF WEBINAR
+                                                      '28 Nov - 3 Des 2022',
+                                                      style: TextStyle(
+                                                        fontSize: 11,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 15,
+                                                  ),
+                                                  Text(
+                                                    _prakerjaHC
+                                                        .mainEcomNewClassess[
+                                                            index]
+                                                        .title!,
+                                                    style: const TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      color: Color(0xff06284F),
+                                                    ),
+                                                    maxLines: 3,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 14,
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          const Icon(
+                                                            Icons.star,
+                                                            color: Color(
+                                                                0xffFAB400),
+                                                            size: 11,
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 4,
+                                                          ),
+                                                          if (_prakerjaHC
+                                                                  .mainEcomNewClassess[
+                                                                      index]
+                                                                  .rating! !=
+                                                              '')
+                                                            Text(
+                                                              double.parse(_prakerjaHC
+                                                                          .mainEcomNewClassess[
+                                                                              index]
+                                                                          .rating!) <
+                                                                      3.0
+                                                                  ? '5.0'
+                                                                  : _prakerjaHC
+                                                                      .mainEcomNewClassess[
+                                                                          index]
+                                                                      .rating!,
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 10,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                color: Color(
+                                                                    0xff194476),
+                                                                fontFamily:
+                                                                    'SourceSansPro',
+                                                              ),
+                                                            ),
+                                                        ],
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 13,
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Image.asset(
+                                                            'assets/images/people_with_rectangle.png',
+                                                            width: 12,
+                                                            height: 12,
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 4,
+                                                          ),
+                                                          Text(
+                                                            '${(int.parse(_prakerjaHC.mainEcomNewClassess[index].siswa!) < 5) ? 5 : _prakerjaHC.mainEcomNewClassess[index].siswa!} siswa',
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 10,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color: Color(
+                                                                  0xff194476),
+                                                              fontFamily:
+                                                                  'SourceSansPro',
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 14,
+                                                  ),
+                                                  Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                        currencyFormatter
+                                                            .format(
+                                                          int.parse(_prakerjaHC
+                                                              .mainEcomNewClassess[
+                                                                  index]
+                                                              .price!),
+                                                        ),
+                                                        style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w800,
+                                                          color:
+                                                              Color(0xff06284F),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 6,
+                                                      ),
+                                                      _prakerjaHC
+                                                                  .mainEcomNewClassess[
+                                                                      index]
+                                                                  .sale ==
+                                                              ''
+                                                          ? const SizedBox()
+                                                          : Text(
+                                                              currencyFormatter
+                                                                  .format(
+                                                                int.parse(_prakerjaHC
+                                                                    .mainEcomNewClassess[
+                                                                        index]
+                                                                    .sale!),
+                                                              ),
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 10,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                color: Color(
+                                                                    0xffE34D46),
+                                                                decoration:
+                                                                    TextDecoration
+                                                                        .lineThrough,
+                                                              ),
+                                                            ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 12,
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );
@@ -485,6 +545,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
                           const SizedBox(
                             height: 17,
                           ),
+                          // PELATIHAN TERPOPULER
                           ListView.builder(
                             physics: const ScrollPhysics(),
                             shrinkWrap: true,
@@ -494,177 +555,221 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                     ? 4
                                     : _prakerjaHC.pelatihanTerpopuler.length,
                             itemBuilder: (context, index) {
-                              return Card(
-                                margin: const EdgeInsets.only(bottom: 15),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                elevation: 3,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(6),
-                                        bottomLeft: Radius.circular(6),
-                                      ),
-                                      child: Image.network(
-                                        _prakerjaHC
-                                            .pelatihanTerpopuler[index].image!,
-                                        width: 97,
-                                        height: 147,
-                                        fit: BoxFit.fitHeight,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 14,
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: 22, bottom: 14, top: 14),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                horizontal: 11,
-                                                vertical: 3,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(2),
-                                                color: const Color(0xff234061),
-                                              ),
-                                              child: const Text(
-                                                '28 Nov - 3 Des 2022',
-                                                style: TextStyle(
-                                                  fontSize: 11,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 9,
-                                            ),
-                                            Text(
-                                              _prakerjaHC
-                                                  .pelatihanTerpopuler[index]
-                                                  .title!,
-                                              maxLines: 3,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: const TextStyle(
-                                                fontSize: 10.5,
-                                                fontWeight: FontWeight.w700,
-                                                color: Color(0xff06284F),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 9,
-                                            ),
-                                            Row(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    const Icon(
-                                                      Icons.star,
-                                                      color: Color(0xffFAB400),
-                                                      size: 11,
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 4,
-                                                    ),
-                                                    Text(
-                                                      _prakerjaHC
-                                                          .pelatihanTerpopuler[
-                                                              index]
-                                                          .rating!,
-                                                      style: const TextStyle(
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color:
-                                                            Color(0xff194476),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                const SizedBox(
-                                                  width: 13,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Image.asset(
-                                                      'assets/images/people_with_rectangle.png',
-                                                      width: 12,
-                                                      height: 12,
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 4,
-                                                    ),
-                                                    const Text(
-                                                      '890',
-                                                      style: TextStyle(
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color:
-                                                            Color(0xff194476),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 7,
-                                                    ),
-                                                    const Text(
-                                                      'siswa',
-                                                      style: TextStyle(
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color:
-                                                            Color(0xff194476),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              height: 14,
-                                            ),
-                                            Row(
-                                              children: const [
-                                                Text(
-                                                  'Rp. 89.000',
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w800,
-                                                    color: Color(0xff06284F),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 9,
-                                                ),
-                                                Text(
-                                                  'Rp. 299.000',
-                                                  style: TextStyle(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xffE34D46),
-                                                    decoration: TextDecoration
-                                                        .lineThrough,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
+                              return InkWell(
+                                onTap: () => Get.toNamed('/class-prakerja',
+                                    arguments: _prakerjaHC
+                                        .mainEcomNewClassess[index].id),
+                                child: Card(
+                                  margin: const EdgeInsets.only(bottom: 15),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  elevation: 3,
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(6),
+                                          bottomLeft: Radius.circular(6),
+                                        ),
+                                        child: Image.network(
+                                          _prakerjaHC.pelatihanTerpopuler[index]
+                                              .image!,
+                                          width: 97,
+                                          height: 147,
+                                          fit: BoxFit.fitHeight,
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      const SizedBox(
+                                        width: 14,
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 22, bottom: 14, top: 14),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  horizontal: 11,
+                                                  vertical: 3,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(2),
+                                                  color:
+                                                      const Color(0xff234061),
+                                                ),
+                                                child: const Text(
+                                                  // TODO CHANGE DATE OF WEBINAR
+                                                  '28 Nov - 3 Des 2022',
+                                                  style: TextStyle(
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 9,
+                                              ),
+                                              Text(
+                                                _prakerjaHC
+                                                    .pelatihanTerpopuler[index]
+                                                    .title!,
+                                                maxLines: 3,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                  fontSize: 10.5,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Color(0xff06284F),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 9,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      const Icon(
+                                                        Icons.star,
+                                                        color:
+                                                            Color(0xffFAB400),
+                                                        size: 11,
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 4,
+                                                      ),
+                                                      Text(
+                                                        double.parse(_prakerjaHC
+                                                                    .pelatihanTerpopuler[
+                                                                        index]
+                                                                    .rating!) <
+                                                                3.0
+                                                            ? '5.0'
+                                                            : _prakerjaHC
+                                                                .pelatihanTerpopuler[
+                                                                    index]
+                                                                .rating!,
+                                                        style: const TextStyle(
+                                                          fontSize: 10,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color:
+                                                              Color(0xff194476),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 13,
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Image.asset(
+                                                        'assets/images/people_with_rectangle.png',
+                                                        width: 12,
+                                                        height: 12,
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 4,
+                                                      ),
+                                                      Text(
+                                                        int.parse(_prakerjaHC
+                                                                    .pelatihanTerpopuler[
+                                                                        index]
+                                                                    .siswa!) <
+                                                                5
+                                                            ? '5'
+                                                            : _prakerjaHC
+                                                                .pelatihanTerpopuler[
+                                                                    index]
+                                                                .siswa!,
+                                                        style: const TextStyle(
+                                                          fontSize: 10,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color:
+                                                              Color(0xff194476),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 7,
+                                                      ),
+                                                      const Text(
+                                                        'siswa',
+                                                        style: TextStyle(
+                                                          fontSize: 10,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color:
+                                                              Color(0xff194476),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                height: 14,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    currencyFormatter.format(
+                                                        int.parse(_prakerjaHC
+                                                            .pelatihanTerpopuler[
+                                                                index]
+                                                            .price!)),
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      color: Color(0xff06284F),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 9,
+                                                  ),
+                                                  _prakerjaHC
+                                                              .pelatihanTerpopuler[
+                                                                  index]
+                                                              .sale ==
+                                                          ''
+                                                      ? const SizedBox()
+                                                      : Text(
+                                                          currencyFormatter
+                                                              .format(int.parse(
+                                                                  _prakerjaHC
+                                                                      .pelatihanTerpopuler[
+                                                                          index]
+                                                                      .sale!)),
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 10,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: Color(
+                                                                0xffE34D46),
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .lineThrough,
+                                                          ),
+                                                        ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               );
                             },

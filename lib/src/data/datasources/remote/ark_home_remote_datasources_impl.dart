@@ -18,8 +18,12 @@ class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
 
   @override
   Future<List<HomeOneEcomEntity>> fetchOneEcom(String ecom) async {
+    /*TEMP USE PRAKERJA URL LUMEN
+    IF WEBINAR IS READY
+    CHANGE TO => prakerjaUrlStaging
+    */
     final response = await dio.get(
-      '$prakerjaUrlStaging/api/v1/prakerja/get_prakerja_marketplace_course?mp_name=$ecom',
+      '$prakerjaUrlLumen/api/v1/prakerja/get_prakerja_marketplace_course?mp_name=$ecom',
       options: dioOptions,
     );
     List<HomeOneEcomEntity> oneEcom = [];
@@ -44,8 +48,12 @@ class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
 
   @override
   Future<List<AllEcomPrakerjaEntity>> fetchNewAllEcom() async {
+    /*TEMP USE PRAKERJA URL LUMEN
+    IF WEBINAR IS READY
+    CHANGE TO => prakerjaUrlStaging
+    */
     final response = await dio.get(
-      '$prakerjaUrlStaging/api/v1/prakerja/get_prakerja_marketplace_course',
+      '$prakerjaUrlLumen/api/v1/prakerja/get_prakerja_marketplace_course',
       options: dioOptions,
     );
     List<AllEcomPrakerjaEntity> allEcom = [];
@@ -84,8 +92,12 @@ class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
 
   @override
   Future<List<AllEcomPrakerjaDto>> fetchPelatihanTerpopuler() async {
+    /*TEMP USE PRAKERJA URL LUMEN
+    IF WEBINAR IS READY
+    CHANGE TO => prakerjaUrlStaging
+    */
     final response = await dio.get(
-      "$prakerjaUrlStaging/api/v1/prakerja/get_prakerja_popular_course",
+      "$prakerjaUrlLumen/api/v1/prakerja/get_prakerja_popular_course",
       options: dioOptions,
     );
     List<AllEcomPrakerjaDto> pelatihanTerpopuler = [];
