@@ -16,9 +16,9 @@ class ArkHomeRepositoryImpl implements ArkHomeRepository {
 
   @override
   Future<Either<Failure, List<HomeOneEcomEntity>>> fetchOneEcom(
-      String ecom) async {
+      String baseUrl, String ecom) async {
     try {
-      final responseEcom = await datasources.fetchOneEcom(ecom);
+      final responseEcom = await datasources.fetchOneEcom(baseUrl, ecom);
       return Right(responseEcom);
     } catch (e) {
       log("ERROR REPO IMPL HOME FETCH ONE ECOM: ${e.toString()}");
@@ -27,9 +27,10 @@ class ArkHomeRepositoryImpl implements ArkHomeRepository {
   }
 
   @override
-  Future<Either<Failure, List<AllEcomPrakerjaEntity>>> fetchNewAllEcom() async {
+  Future<Either<Failure, List<AllEcomPrakerjaEntity>>> fetchNewAllEcom(
+      String baseUrl) async {
     try {
-      final response = await datasources.fetchNewAllEcom();
+      final response = await datasources.fetchNewAllEcom(baseUrl);
       return Right(response);
     } catch (e) {
       log("ERROR REPO IMPL HOME REPO FETCH ALL NEW ECOM: ${e.toString()}");
@@ -38,9 +39,10 @@ class ArkHomeRepositoryImpl implements ArkHomeRepository {
   }
 
   @override
-  Future<Either<Failure, SliderPrakerjaEntity>> fetchSliderPrakerja() async {
+  Future<Either<Failure, SliderPrakerjaEntity>> fetchSliderPrakerja(
+      String baseUrl) async {
     try {
-      final response = await datasources.fetchSliderPrakerja();
+      final response = await datasources.fetchSliderPrakerja(baseUrl);
       return Right(response);
     } catch (e) {
       log("ERROR REPO IMPL HOME REPO FETCH SLIDER PRAKERJA: ${e.toString()}");
@@ -49,10 +51,10 @@ class ArkHomeRepositoryImpl implements ArkHomeRepository {
   }
 
   @override
-  Future<Either<Failure, List<AllEcomPrakerjaDto>>>
-      fetchPelatihanTerpopuler() async {
+  Future<Either<Failure, List<AllEcomPrakerjaDto>>> fetchPelatihanTerpopuler(
+      String baseUrl) async {
     try {
-      final response = await datasources.fetchPelatihanTerpopuler();
+      final response = await datasources.fetchPelatihanTerpopuler(baseUrl);
       return Right(response);
     } catch (e) {
       log("ERROR REPO IMPL HOME REPO FETCH PELATIHAN TERPOPULER: ${e.toString()}");

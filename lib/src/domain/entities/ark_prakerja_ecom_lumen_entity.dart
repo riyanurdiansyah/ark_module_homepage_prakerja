@@ -49,7 +49,9 @@ class AllEcomPrakerjaEntity {
         linkmarketplace: Linkmarketplace.fromJson(json["linkmarketplace"]),
         price: json["price"],
         sale: json["sale"],
-        rating: json["rating"],
+        rating: json["rating"] == "" || json["rating"] == null
+            ? "5"
+            : json["rating"],
         siswa: json["siswa"],
         image: json["image"],
         tanggalMulai: json["tanggal_mulai"],

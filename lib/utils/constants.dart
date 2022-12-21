@@ -1,4 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
+
+final currencyFormatter = NumberFormat.currency(
+  locale: "id_ID",
+  symbol: "Rp ",
+  decimalDigits: 0,
+);
 
 Options get dioOptions => Options(headers: {
       "Accept": "*/*",
@@ -62,3 +69,6 @@ final List<Map<String, String>> cardRangkaian = [
     'img': 'assets/images/webinar_prakerja/unjuk_keterampilan.png',
   },
 ];
+
+NumberFormat formatter = NumberFormat("#,###");
+NumberFormat numberFormat = NumberFormat.decimalPattern('id');

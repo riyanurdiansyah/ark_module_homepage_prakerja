@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:ark_module_homepage_prakerja/ark_module_homepage_prakerja.dart';
 import 'package:ark_module_homepage_prakerja/src/presentations/page/widgets/ark_slider_banner.dart';
+import 'package:ark_module_homepage_prakerja/utils/app_empty_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -92,11 +95,13 @@ class ArkHomePagePrakerja extends StatelessWidget {
                       height: 20,
                     ),
                     //  BANNER
-                    ArkPrakerjaSliderFromBackend(controller: _prakerjaHC),
+                    if (_prakerjaHC.sliderImage.value != emptySlider)
+                      ArkPrakerjaSliderFromBackend(controller: _prakerjaHC),
 
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    if (_prakerjaHC.sliderImage.value != emptySlider)
+                      const SizedBox(
+                        height: 30,
+                      ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 16,
@@ -113,7 +118,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(
-                            height: 19,
+                            height: 18,
                           ),
                           // MARKET PLACE LOGO
                           Wrap(
@@ -217,7 +222,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: 18,
+                      height: 16,
                     ),
                     // FOR CARD MIDDLE
                     // ListView.builder(
@@ -247,176 +252,295 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                     ? _prakerjaHC.mainEcomNewClassess.length
                                     : _prakerjaHC.listHomeEcome.length,
                                 itemBuilder: (context, index) {
-                                  return SizedBox(
-                                    width: 270,
-                                    child: Card(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(7),
-                                      ),
-                                      elevation: 3,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            height: 110,
-                                            width: 270,
-                                            decoration: const BoxDecoration(
-                                              color: Colors.grey,
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(7),
-                                                topRight: Radius.circular(7),
+                                  final price = _prakerjaHC
+                                          .listHomeEcome.isEmpty
+                                      ? _prakerjaHC
+                                          .mainEcomNewClassess[index].price!
+                                      : _prakerjaHC.listHomeEcome[index].price!;
+
+                                  final salePrice = _prakerjaHC
+                                          .listHomeEcome.isEmpty
+                                      ? _prakerjaHC.mainEcomNewClassess[index]
+                                              .sale ??
+                                          "0"
+                                      : _prakerjaHC.listHomeEcome[index].sale ??
+                                          "0";
+
+                                  final siswa = _prakerjaHC
+                                          .listHomeEcome.isEmpty
+                                      ? _prakerjaHC.mainEcomNewClassess[index]
+                                                      .siswa ==
+                                                  null ||
+                                              _prakerjaHC
+                                                  .mainEcomNewClassess[index]
+                                                  .siswa!
+                                                  .isEmpty
+                                          ? "100"
+                                          : numberFormat.format(int.parse(
+                                              _prakerjaHC
+                                                  .mainEcomNewClassess[index]
+                                                  .siswa!))
+                                      : _prakerjaHC.listHomeEcome[index]
+                                                      .siswa ==
+                                                  null ||
+                                              _prakerjaHC.listHomeEcome[index]
+                                                  .siswa!.isEmpty
+                                          ? "100"
+                                          : numberFormat.format(int.parse(
+                                              _prakerjaHC.listHomeEcome[index]
+                                                  .siswa!));
+                                  return InkWell(
+                                    onTap: () => Get.toNamed("/class-prakerja",
+                                        arguments:
+                                            _prakerjaHC.listHomeEcome.isEmpty
+                                                ? _prakerjaHC
+                                                    .mainEcomNewClassess[index]
+                                                    .id
+                                                : _prakerjaHC
+                                                    .listHomeEcome[index].id),
+                                    child: SizedBox(
+                                      width: 270,
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(7),
+                                        ),
+                                        elevation: 3,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              height: 110,
+                                              width: 270,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey.shade200,
+                                                borderRadius:
+                                                    const BorderRadius.only(
+                                                  topLeft: Radius.circular(7),
+                                                  topRight: Radius.circular(7),
+                                                ),
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                    _prakerjaHC.listHomeEcome
+                                                            .isEmpty
+                                                        ? _prakerjaHC
+                                                                .mainEcomNewClassess[
+                                                                    index]
+                                                                .image ??
+                                                            "..."
+                                                        : _prakerjaHC
+                                                                .listHomeEcome[
+                                                                    index]
+                                                                .image ??
+                                                            "...",
+                                                  ),
+                                                  onError: (_, __) =>
+                                                      Image.asset(
+                                                    'assets/images/arkademi-icon.png',
+                                                    color: Colors.blue,
+                                                  ),
+                                                  fit: BoxFit.cover,
+                                                  filterQuality:
+                                                      FilterQuality.high,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            height: 12,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 19),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    horizontal: 11,
-                                                    vertical: 3,
-                                                  ),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            2),
-                                                    color:
-                                                        const Color(0xff234061),
-                                                  ),
-                                                  child: const Text(
-                                                    '28 Nov - 3 Des 2022',
-                                                    style: TextStyle(
-                                                      fontSize: 11,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: Colors.white,
+                                            const SizedBox(
+                                              height: 12,
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 19),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                      horizontal: 11,
+                                                      vertical: 3,
                                                     ),
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 15,
-                                                ),
-                                                const Text(
-                                                  'Menerapkan Prinsip Fundamental Desain UI dengan FIGMA untuk Desainer UI/UX',
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Color(0xff06284F),
-                                                  ),
-                                                  maxLines: 3,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                ),
-                                                const SizedBox(
-                                                  height: 14,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Row(
-                                                      children: const [
-                                                        Icon(
-                                                          Icons.star,
-                                                          color:
-                                                              Color(0xffFAB400),
-                                                          size: 11,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 4,
-                                                        ),
-                                                        Text(
-                                                          '4.9',
-                                                          style: TextStyle(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            color: Color(
-                                                                0xff194476),
-                                                            fontFamily:
-                                                                'SourceSansPro',
-                                                          ),
-                                                        ),
-                                                      ],
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              2),
+                                                      color: const Color(
+                                                          0xff234061),
                                                     ),
-                                                    const SizedBox(
-                                                      width: 13,
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Image.asset(
-                                                          'assets/images/people_with_rectangle.png',
-                                                          width: 12,
-                                                          height: 12,
-                                                        ),
-                                                        const SizedBox(
-                                                          width: 4,
-                                                        ),
-                                                        const Text(
-                                                          '890 siswa',
-                                                          style: TextStyle(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            color: Color(
-                                                                0xff194476),
-                                                            fontFamily:
-                                                                'SourceSansPro',
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                                const SizedBox(
-                                                  height: 14,
-                                                ),
-                                                Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: const [
-                                                    Text(
-                                                      'Rp. 89.000',
+                                                    child: const Text(
+                                                      '28 Nov - 3 Des 2022',
                                                       style: TextStyle(
-                                                        fontSize: 14,
+                                                        fontSize: 11,
                                                         fontWeight:
-                                                            FontWeight.w800,
+                                                            FontWeight.w600,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 15,
+                                                  ),
+                                                  SizedBox(
+                                                    height: 50,
+                                                    child: Text(
+                                                      _prakerjaHC.listHomeEcome
+                                                              .isEmpty
+                                                          ? _prakerjaHC
+                                                                  .mainEcomNewClassess[
+                                                                      index]
+                                                                  .title ??
+                                                              "..."
+                                                          : _prakerjaHC
+                                                                  .listHomeEcome[
+                                                                      index]
+                                                                  .title ??
+                                                              "...",
+                                                      style: const TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w700,
                                                         color:
                                                             Color(0xff06284F),
                                                       ),
+                                                      maxLines: 3,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                     ),
-                                                    SizedBox(
-                                                      width: 6,
-                                                    ),
-                                                    Text(
-                                                      'Rp. 299.000',
-                                                      style: TextStyle(
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color:
-                                                            Color(0xffE34D46),
-                                                        decoration:
-                                                            TextDecoration
-                                                                .lineThrough,
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 14,
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          const Icon(
+                                                            Icons.star,
+                                                            color: Color(
+                                                                0xffFAB400),
+                                                            size: 11,
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 4,
+                                                          ),
+                                                          Text(
+                                                            _prakerjaHC
+                                                                    .listHomeEcome
+                                                                    .isEmpty
+                                                                ? _prakerjaHC
+                                                                        .mainEcomNewClassess[
+                                                                            index]
+                                                                        .rating ??
+                                                                    "5.0"
+                                                                : _prakerjaHC
+                                                                        .listHomeEcome[
+                                                                            index]
+                                                                        .rating ??
+                                                                    "5.0",
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 10,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color: Color(
+                                                                  0xff194476),
+                                                              fontFamily:
+                                                                  'SourceSansPro',
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                const SizedBox(
-                                                  height: 12,
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        ],
+                                                      const SizedBox(
+                                                        width: 13,
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Image.asset(
+                                                            'assets/images/people_with_rectangle.png',
+                                                            width: 12,
+                                                            height: 12,
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 4,
+                                                          ),
+                                                          Text(
+                                                            "$siswa Siswa",
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 10,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color: Color(
+                                                                  0xff194476),
+                                                              fontFamily:
+                                                                  'SourceSansPro',
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 14,
+                                                  ),
+                                                  Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                        salePrice == "" ||
+                                                                salePrice == "0"
+                                                            ? currencyFormatter
+                                                                .format(
+                                                                    int.parse(
+                                                                        price))
+                                                            : currencyFormatter
+                                                                .format(int.parse(
+                                                                    salePrice)),
+                                                        style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w800,
+                                                          color:
+                                                              Color(0xff06284F),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 6,
+                                                      ),
+                                                      if (salePrice != "" &&
+                                                          salePrice != "0")
+                                                        Text(
+                                                          currencyFormatter
+                                                              .format(int.parse(
+                                                                  price)),
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 10,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            color: Color(
+                                                                0xffE34D46),
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .lineThrough,
+                                                          ),
+                                                        ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 12,
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );
@@ -456,6 +580,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                 ),
                                 isOutlinedButton: true,
                                 onPressed: () {
+                                  log("CEK : ${_prakerjaHC.ecommSelected.value}");
                                   _prakerjaHC.indexBeliDiMarketPlace.value = 0;
                                   Get.toNamed(
                                     '/beli-di-market-place-webinar',
@@ -494,6 +619,12 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                     ? 4
                                     : _prakerjaHC.pelatihanTerpopuler.length,
                             itemBuilder: (context, index) {
+                              final price =
+                                  _prakerjaHC.pelatihanTerpopuler[index].price!;
+
+                              final salePrice =
+                                  _prakerjaHC.pelatihanTerpopuler[index].sale ??
+                                      "0";
                               return Card(
                                 margin: const EdgeInsets.only(bottom: 15),
                                 shape: RoundedRectangleBorder(
@@ -539,7 +670,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                                 color: const Color(0xff234061),
                                               ),
                                               child: const Text(
-                                                '28 Nov - 3 Des 2022',
+                                                '282 Nov - 3 Des 2022',
                                                 style: TextStyle(
                                                   fontSize: 11,
                                                   fontWeight: FontWeight.w600,
@@ -579,9 +710,20 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                                     ),
                                                     Text(
                                                       _prakerjaHC
-                                                          .pelatihanTerpopuler[
-                                                              index]
-                                                          .rating!,
+                                                                      .pelatihanTerpopuler[
+                                                                          index]
+                                                                      .rating ==
+                                                                  "" ||
+                                                              _prakerjaHC
+                                                                      .pelatihanTerpopuler[
+                                                                          index]
+                                                                      .rating ==
+                                                                  null
+                                                          ? "5"
+                                                          : _prakerjaHC
+                                                              .pelatihanTerpopuler[
+                                                                  index]
+                                                              .rating!,
                                                       style: const TextStyle(
                                                         fontSize: 10,
                                                         fontWeight:
@@ -605,9 +747,24 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                                     const SizedBox(
                                                       width: 4,
                                                     ),
-                                                    const Text(
-                                                      '890',
-                                                      style: TextStyle(
+                                                    Text(
+                                                      _prakerjaHC
+                                                                      .pelatihanTerpopuler[
+                                                                          index]
+                                                                      .siswa ==
+                                                                  null ||
+                                                              _prakerjaHC
+                                                                  .pelatihanTerpopuler[
+                                                                      index]
+                                                                  .siswa!
+                                                                  .isEmpty
+                                                          ? "100"
+                                                          : numberFormat.format(
+                                                              int.parse(_prakerjaHC
+                                                                  .pelatihanTerpopuler[
+                                                                      index]
+                                                                  .siswa!)),
+                                                      style: const TextStyle(
                                                         fontSize: 10,
                                                         fontWeight:
                                                             FontWeight.w500,
@@ -616,10 +773,10 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                                       ),
                                                     ),
                                                     const SizedBox(
-                                                      width: 7,
+                                                      width: 4,
                                                     ),
                                                     const Text(
-                                                      'siswa',
+                                                      'Siswa',
                                                       style: TextStyle(
                                                         fontSize: 10,
                                                         fontWeight:
@@ -636,28 +793,39 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                               height: 14,
                                             ),
                                             Row(
-                                              children: const [
+                                              children: [
                                                 Text(
-                                                  'Rp. 89.000',
-                                                  style: TextStyle(
+                                                  salePrice == "" ||
+                                                          salePrice == "0"
+                                                      ? currencyFormatter
+                                                          .format(
+                                                              int.parse(price))
+                                                      : currencyFormatter
+                                                          .format(int.parse(
+                                                              salePrice)),
+                                                  style: const TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w800,
                                                     color: Color(0xff06284F),
                                                   ),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 9,
                                                 ),
-                                                Text(
-                                                  'Rp. 299.000',
-                                                  style: TextStyle(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xffE34D46),
-                                                    decoration: TextDecoration
-                                                        .lineThrough,
+                                                if (salePrice != "" &&
+                                                    salePrice != "0")
+                                                  Text(
+                                                    currencyFormatter.format(
+                                                        int.parse(price)),
+                                                    style: const TextStyle(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Color(0xffE34D46),
+                                                      decoration: TextDecoration
+                                                          .lineThrough,
+                                                    ),
                                                   ),
-                                                ),
                                               ],
                                             ),
                                           ],

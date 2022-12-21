@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:ark_module_homepage_prakerja/src/presentations/page/controller/ark_home_pake_controller.dart';
@@ -7,21 +6,10 @@ import 'package:shimmer/shimmer.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/app_color.dart';
+import '../../../../utils/constants.dart';
 
-class ArkBeliDiMarketPlaceWebinar extends StatefulWidget {
-  final int index;
-  const ArkBeliDiMarketPlaceWebinar({Key? key, required this.index})
-      : super(key: key);
-
-  @override
-  State<ArkBeliDiMarketPlaceWebinar> createState() =>
-      _ArkBeliDiMarketPlaceWebinarState();
-}
-
-class _ArkBeliDiMarketPlaceWebinarState
-    extends State<ArkBeliDiMarketPlaceWebinar> {
-  int args = Get.arguments;
-
+class ArkBeliDiMarketPlaceWebinar extends StatelessWidget {
+  ArkBeliDiMarketPlaceWebinar({Key? key}) : super(key: key);
   final _prakerjaHc = Get.find<ArkHomePagePrakerjaController>();
 
   final List marketPlaceWebinar = [
@@ -55,9 +43,10 @@ class _ArkBeliDiMarketPlaceWebinarState
 
   @override
   Widget build(BuildContext context) {
-    log(args.toString());
+    // log(args.toString());
     return Scaffold(
       appBar: AppBar(
+        elevation: 2,
         bottom: PreferredSize(
             preferredSize: const Size.fromHeight(60),
             child: Column(
@@ -172,7 +161,8 @@ class _ArkBeliDiMarketPlaceWebinarState
           padding: const EdgeInsets.all(16),
           child: Obx(
             () => _prakerjaHc.isLoadingEcom.value == false &&
-                    _prakerjaHc.listHomeEcome.isEmpty
+                    _prakerjaHc.listHomeEcome.isEmpty &&
+                    _prakerjaHc.mainEcomNewClassess.isEmpty
                 ? const Center(child: Text('Tidak ada kelas'))
                 : _prakerjaHc.isLoadingEcom.value == true
                     ? ListView(
@@ -180,7 +170,7 @@ class _ArkBeliDiMarketPlaceWebinarState
                         shrinkWrap: true,
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         children: List.generate(
-                          5,
+                          4,
                           (index) => Shimmer.fromColors(
                             baseColor: Colors.grey[300]!,
                             highlightColor: Colors.grey[100]!,
@@ -202,8 +192,17 @@ class _ArkBeliDiMarketPlaceWebinarState
                     : ListView.builder(
                         physics: const ScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: _prakerjaHc.listHomeEcome.length,
+                        itemCount: _prakerjaHc.listHomeEcome.isEmpty
+                            ? _prakerjaHc.mainEcomNewClassess.length
+                            : _prakerjaHc.listHomeEcome.length,
                         itemBuilder: (context, i) {
+                          final price = _prakerjaHc.listHomeEcome.isEmpty
+                              ? _prakerjaHc.mainEcomNewClassess[i].price!
+                              : _prakerjaHc.listHomeEcome[i].price!;
+
+                          final salePrice = _prakerjaHc.listHomeEcome.isEmpty
+                              ? _prakerjaHc.mainEcomNewClassess[i].sale ?? "0"
+                              : _prakerjaHc.listHomeEcome[i].sale ?? "0";
                           return Card(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6),
@@ -218,10 +217,19 @@ class _ArkBeliDiMarketPlaceWebinarState
                                     bottomLeft: Radius.circular(6),
                                   ),
                                   child: Image.network(
-                                    'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+                                    _prakerjaHc.listHomeEcome.isEmpty
+                                        ? _prakerjaHc
+                                                .mainEcomNewClassess[i].image ??
+                                            "..."
+                                        : _prakerjaHc.listHomeEcome[i].image ??
+                                            "...",
                                     width: 97,
                                     height: 137,
                                     fit: BoxFit.fitHeight,
+                                    errorBuilder: (_, __, ___) => Image.asset(
+                                      'assets/images/arkademi-icon.png',
+                                      color: Colors.blue,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(
@@ -246,7 +254,7 @@ class _ArkBeliDiMarketPlaceWebinarState
                                             color: const Color(0xff234061),
                                           ),
                                           child: const Text(
-                                            '28 Nov - 3 Des 2022',
+                                            '282 Nov - 3 Des 2022',
                                             style: TextStyle(
                                               fontSize: 11,
                                               fontWeight: FontWeight.w600,
@@ -257,11 +265,18 @@ class _ArkBeliDiMarketPlaceWebinarState
                                         const SizedBox(
                                           height: 5,
                                         ),
-                                        const Text(
-                                          'Menerapkan Prinsip Fundamental Desain UI dengan FIGMA untuk Desainer UI/UX',
+                                        Text(
+                                          _prakerjaHc.listHomeEcome.isEmpty
+                                              ? _prakerjaHc
+                                                      .mainEcomNewClassess[i]
+                                                      .title ??
+                                                  "..."
+                                              : _prakerjaHc
+                                                      .listHomeEcome[i].title ??
+                                                  "...",
                                           maxLines: 3,
                                           overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 10.5,
                                             fontWeight: FontWeight.w700,
                                             color: Color(0xff06284F),
@@ -273,18 +288,26 @@ class _ArkBeliDiMarketPlaceWebinarState
                                         Row(
                                           children: [
                                             Row(
-                                              children: const [
-                                                Icon(
+                                              children: [
+                                                const Icon(
                                                   Icons.star,
                                                   color: Color(0xffFAB400),
                                                   size: 11,
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 4,
                                                 ),
                                                 Text(
-                                                  '4.9',
-                                                  style: TextStyle(
+                                                  _prakerjaHc
+                                                          .listHomeEcome.isEmpty
+                                                      ? _prakerjaHc
+                                                          .mainEcomNewClassess[
+                                                              i]
+                                                          .rating!
+                                                      : _prakerjaHc
+                                                          .listHomeEcome[i]
+                                                          .rating!,
+                                                  style: const TextStyle(
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w500,
                                                     color: Color(0xff194476),
@@ -305,9 +328,9 @@ class _ArkBeliDiMarketPlaceWebinarState
                                                 const SizedBox(
                                                   width: 4,
                                                 ),
-                                                const Text(
-                                                  '890',
-                                                  style: TextStyle(
+                                                Text(
+                                                  "${_prakerjaHc.listHomeEcome.isEmpty ? _prakerjaHc.mainEcomNewClassess[i].siswa ?? "35" : _prakerjaHc.listHomeEcome[i].siswa ?? "35"} Siswa",
+                                                  style: const TextStyle(
                                                     fontSize: 10,
                                                     fontWeight: FontWeight.w500,
                                                     color: Color(0xff194476),
@@ -321,28 +344,36 @@ class _ArkBeliDiMarketPlaceWebinarState
                                           height: 9,
                                         ),
                                         Row(
-                                          children: const [
+                                          children: [
                                             Text(
-                                              'Rp. 89.000',
-                                              style: TextStyle(
+                                              salePrice == "" ||
+                                                      salePrice == "0"
+                                                  ? currencyFormatter
+                                                      .format(int.parse(price))
+                                                  : currencyFormatter.format(
+                                                      int.parse(salePrice)),
+                                              style: const TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w800,
                                                 color: Color(0xff06284F),
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 9,
                                             ),
-                                            Text(
-                                              'Rp. 299.000',
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w500,
-                                                color: Color(0xffE34D46),
-                                                decoration:
-                                                    TextDecoration.lineThrough,
+                                            if (salePrice != "" &&
+                                                salePrice != "0")
+                                              Text(
+                                                currencyFormatter
+                                                    .format(int.parse(price)),
+                                                style: const TextStyle(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Color(0xffE34D46),
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
+                                                ),
                                               ),
-                                            ),
                                           ],
                                         ),
                                       ],

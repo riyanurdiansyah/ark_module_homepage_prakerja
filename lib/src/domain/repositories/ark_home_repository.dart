@@ -6,8 +6,12 @@ import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_slider_prak
 import 'package:dartz/dartz.dart';
 
 abstract class ArkHomeRepository {
-  Future<Either<Failure, List<HomeOneEcomEntity>>> fetchOneEcom(String ecom);
-  Future<Either<Failure, List<AllEcomPrakerjaEntity>>> fetchNewAllEcom();
-  Future<Either<Failure, SliderPrakerjaEntity>> fetchSliderPrakerja();
-  Future<Either<Failure, List<AllEcomPrakerjaDto>>> fetchPelatihanTerpopuler();
+  Future<Either<Failure, List<HomeOneEcomEntity>>> fetchOneEcom(
+      String baseUrl, String ecom);
+  Future<Either<Failure, List<AllEcomPrakerjaEntity>>> fetchNewAllEcom(
+      String baseUrl);
+  Future<Either<Failure, SliderPrakerjaEntity>> fetchSliderPrakerja(
+      String baseUrl);
+  Future<Either<Failure, List<AllEcomPrakerjaDto>>> fetchPelatihanTerpopuler(
+      String baseUrl);
 }
