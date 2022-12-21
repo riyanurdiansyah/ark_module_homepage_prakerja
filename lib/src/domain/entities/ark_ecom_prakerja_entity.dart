@@ -19,6 +19,8 @@ class HomeOneEcomEntity {
     this.siswa,
     this.image,
     this.sale,
+    this.tanggalMulai,
+    this.tanggalSelesai,
   });
 
   int? id;
@@ -31,6 +33,8 @@ class HomeOneEcomEntity {
   String? siswa;
   String? image;
   String? sale;
+  int? tanggalMulai;
+  int? tanggalSelesai;
 
   factory HomeOneEcomEntity.fromJson(Map<String, dynamic> json) =>
       HomeOneEcomEntity(
@@ -44,6 +48,14 @@ class HomeOneEcomEntity {
         siswa: json["siswa"],
         image: json["image"],
         sale: json["sale"] == null || json["sale"] == false ? "" : json["sale"],
+        tanggalMulai:
+            json["tanggal_mulai"] == null || json["tanggal_mulai"] == false
+                ? 0
+                : json["tanggal_mulai"],
+        tanggalSelesai:
+            json["tanggal_selesai"] == null || json["tanggal_selesai"] == false
+                ? 0
+                : json["tanggal_selesai"],
       );
 
   Map<String, dynamic> toJson() => {

@@ -7,12 +7,11 @@ import 'package:ark_module_homepage_prakerja/src/data/repositories/ark_home_impl
 import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_ecom_prakerja_entity.dart';
 import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_prakerja_ecom_lumen_entity.dart';
 import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_slider_prakerja_entity.dart';
-import 'package:ark_module_homepage_prakerja/src/domain/entities/new_config_entity.dart';
 import 'package:ark_module_homepage_prakerja/src/domain/usecases/ark_home_usecases.dart';
 import 'package:ark_module_homepage_prakerja/utils/app_empty_entity.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ArkHomePagePrakerjaController extends GetxController {
   // LOADING VARIABLES
@@ -57,12 +56,14 @@ class ArkHomePagePrakerjaController extends GetxController {
   Rx<int> get indexBeliDiMarketPlace => _indexBeliDiMarketPlace;
 
   final Rx<String> _baseUrlApiCourse = "".obs;
+  final Rx<String> _baseUrlApiMember = "".obs;
 
+  late SharedPreferences _pref;
   @override
   void onInit() async {
     _changeLoading(true);
     super.onInit();
-    await _fetchConfig();
+    // await _fetchConfig();
     await _setup();
     fetchAllNewEcomWebinar();
     fetchSliderPrakerja();
@@ -71,21 +72,17 @@ class ArkHomePagePrakerjaController extends GetxController {
   }
 
   Future _setup() async {
+    _pref = await SharedPreferences.getInstance();
     //INITIALIZE DATASOURCE
     _dataSource = ArkHomeRemoteDatasourcesImpl();
     //INITIALIZE REPOSITORY
     _repository = ArkHomeRepositoryImpl(_dataSource);
     //INITIALIZE USECASE
     _useCases = ArkUseCases(_repository);
-  }
 
-  Future _fetchConfig() async {
-    final response = await FirebaseFirestore.instance
-        .collection('config')
-        .doc('config')
-        .get();
-    final data = NewConfigEntity.fromJson(response.data()!);
-    _baseUrlApiCourse.value = data.prakerja.prakerjaApiCourseUrl;
+    // _baseUrlWp.value = _pref.getString("prakerja_api_wp_url")!;
+    _baseUrlApiCourse.value = _pref.getString("prakerja_api_course_url")!;
+    _baseUrlApiMember.value = _pref.getString("prakerja_api_member_url")!;
   }
 
   Future<bool> _changeLoading(bool val) async {

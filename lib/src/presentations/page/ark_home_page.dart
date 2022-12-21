@@ -6,6 +6,7 @@ import 'package:ark_module_homepage_prakerja/utils/app_empty_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ArkHomePagePrakerja extends StatelessWidget {
   ArkHomePagePrakerja({Key? key}) : super(key: key);
@@ -253,6 +254,24 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                     ? _prakerjaHC.mainEcomNewClassess.length
                                     : _prakerjaHC.listHomeEcome.length,
                                 itemBuilder: (context, index) {
+                                  final tglMulai =
+                                      _prakerjaHC.listHomeEcome.isEmpty
+                                          ? _prakerjaHC
+                                                  .mainEcomNewClassess[index]
+                                                  .tanggalMulai ??
+                                              0 * 1000
+                                          : _prakerjaHC.listHomeEcome[index]
+                                                  .tanggalMulai ??
+                                              0 * 1000;
+                                  final tglSelesai =
+                                      _prakerjaHC.listHomeEcome.isEmpty
+                                          ? _prakerjaHC
+                                                  .mainEcomNewClassess[index]
+                                                  .tanggalSelesai ??
+                                              0 * 1000
+                                          : _prakerjaHC.listHomeEcome[index]
+                                                  .tanggalSelesai ??
+                                              0 * 1000;
                                   return InkWell(
                                     onTap: () => Get.toNamed('/class-prakerja',
                                         arguments: _prakerjaHC
@@ -300,30 +319,31 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Container(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                      horizontal: 11,
-                                                      vertical: 3,
-                                                    ),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              2),
-                                                      color: const Color(
-                                                          0xff234061),
-                                                    ),
-                                                    child: const Text(
-                                                      // TODO CHANGE DATE OF WEBINAR
-                                                      '28 Nov - 3 Des 2022',
-                                                      style: TextStyle(
-                                                        fontSize: 11,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: Colors.white,
+                                                  if (tglMulai != 0 &&
+                                                      tglSelesai != 0)
+                                                    Container(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                        horizontal: 11,
+                                                        vertical: 3,
+                                                      ),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(2),
+                                                        color: const Color(
+                                                            0xff234061),
+                                                      ),
+                                                      child: Text(
+                                                        "${DateFormat.MMMd('id').format(DateTime.fromMillisecondsSinceEpoch(tglMulai))} - ${DateFormat.yMMMMd('id').format(DateTime.fromMillisecondsSinceEpoch(tglSelesai))}",
+                                                        style: const TextStyle(
+                                                          fontSize: 11,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color: Colors.white,
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
                                                   const SizedBox(
                                                     height: 15,
                                                   ),
@@ -561,6 +581,15 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                     ? 4
                                     : _prakerjaHC.pelatihanTerpopuler.length,
                             itemBuilder: (context, index) {
+                              final tglSelesaiPopuler = _prakerjaHC
+                                      .pelatihanTerpopuler[index]
+                                      .tanggalSelesai ??
+                                  0;
+
+                              final tglMulaiPopuler = _prakerjaHC
+                                      .pelatihanTerpopuler[index]
+                                      .tanggalMulai ??
+                                  0;
                               return InkWell(
                                 onTap: () => Get.toNamed('/class-prakerja',
                                     arguments: _prakerjaHC
@@ -599,28 +628,32 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                  horizontal: 11,
-                                                  vertical: 3,
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(2),
-                                                  color:
-                                                      const Color(0xff234061),
-                                                ),
-                                                child: const Text(
-                                                  // TODO CHANGE DATE OF WEBINAR
-                                                  '28 Nov - 3 Des 2022',
-                                                  style: TextStyle(
-                                                    fontSize: 11,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Colors.white,
+                                              if (tglMulaiPopuler != 0 &&
+                                                  tglSelesaiPopuler != 0)
+                                                Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                    horizontal: 11,
+                                                    vertical: 3,
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            2),
+                                                    color:
+                                                        const Color(0xff234061),
+                                                  ),
+                                                  child: Text(
+                                                    // TODO CHANGE DATE OF WEBINAR
+                                                    "${DateFormat.MMMd('id').format(DateTime.fromMillisecondsSinceEpoch(tglMulaiPopuler))} - ${DateFormat.yMMMMd('id').format(DateTime.fromMillisecondsSinceEpoch(tglSelesaiPopuler))}",
+                                                    style: const TextStyle(
+                                                      fontSize: 11,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors.white,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
                                               const SizedBox(
                                                 height: 9,
                                               ),

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:ark_module_homepage_prakerja/src/presentations/page/controller/ark_home_pake_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:get/get.dart';
 
@@ -203,6 +204,19 @@ class ArkBeliDiMarketPlaceWebinar extends StatelessWidget {
                           final salePrice = _prakerjaHc.listHomeEcome.isEmpty
                               ? _prakerjaHc.mainEcomNewClassess[i].sale ?? "0"
                               : _prakerjaHc.listHomeEcome[i].sale ?? "0";
+
+                          final tglMulai = _prakerjaHc.listHomeEcome.isEmpty
+                              ? _prakerjaHc
+                                      .mainEcomNewClassess[i].tanggalMulai ??
+                                  0 * 1000
+                              : _prakerjaHc.listHomeEcome[i].tanggalMulai ??
+                                  0 * 1000;
+                          final tglSelesai = _prakerjaHc.listHomeEcome.isEmpty
+                              ? _prakerjaHc
+                                      .mainEcomNewClassess[i].tanggalSelesai ??
+                                  0 * 1000
+                              : _prakerjaHc.listHomeEcome[i].tanggalSelesai ??
+                                  0 * 1000;
                           return Card(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6),
@@ -243,25 +257,26 @@ class ArkBeliDiMarketPlaceWebinar extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 11,
-                                            vertical: 3,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(2),
-                                            color: const Color(0xff234061),
-                                          ),
-                                          child: const Text(
-                                            '282 Nov - 3 Des 2022',
-                                            style: TextStyle(
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.white,
+                                        if (tglMulai != 0 && tglSelesai != 0)
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 11,
+                                              vertical: 3,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(2),
+                                              color: const Color(0xff234061),
+                                            ),
+                                            child: Text(
+                                              "${DateFormat.MMMd('id').format(DateTime.fromMillisecondsSinceEpoch(tglMulai))} - ${DateFormat.yMMMMd('id').format(DateTime.fromMillisecondsSinceEpoch(tglSelesai))}",
+                                              style: const TextStyle(
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white,
+                                              ),
                                             ),
                                           ),
-                                        ),
                                         const SizedBox(
                                           height: 5,
                                         ),

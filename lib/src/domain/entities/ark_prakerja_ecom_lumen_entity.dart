@@ -37,8 +37,8 @@ class AllEcomPrakerjaEntity {
   String? rating;
   String? siswa;
   String? image;
-  bool? tanggalMulai;
-  bool? tanggalSelesai;
+  int? tanggalMulai;
+  int? tanggalSelesai;
 
   factory AllEcomPrakerjaEntity.fromJson(Map<String, dynamic> json) =>
       AllEcomPrakerjaEntity(
@@ -54,8 +54,14 @@ class AllEcomPrakerjaEntity {
             : json["rating"],
         siswa: json["siswa"],
         image: json["image"],
-        tanggalMulai: json["tanggal_mulai"],
-        tanggalSelesai: json["tanggal_selesai"],
+        tanggalMulai:
+            json["tanggal_mulai"] == null || json["tanggal_mulai"] == false
+                ? 0
+                : json["tanggal_mulai"],
+        tanggalSelesai:
+            json["tanggal_selesai"] == null || json["tanggal_selesai"] == false
+                ? 0
+                : json["tanggal_selesai"],
       );
 
   Map<String, dynamic> toJson() => {

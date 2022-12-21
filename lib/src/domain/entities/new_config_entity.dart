@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NewConfigEntity {
   NewConfigEntity({
-   required this.prakerja,
+    required this.prakerja,
   });
 
- final  PrakerjaConfigM prakerja;
+  final PrakerjaConfigM prakerja;
 
   factory NewConfigEntity.fromJson(Map<String, dynamic> json) =>
       NewConfigEntity(
@@ -21,6 +21,9 @@ class PrakerjaConfigM {
     required this.newUrl,
     required this.prakerjaApiMemberUrl,
     required this.prakerjaApiCourseUrl,
+    required this.staging,
+    required this.prakerjaStagingApiCourseUrl,
+    required this.prakerjaStagingApiMemberUrl,
   });
 
   final String baseUrl;
@@ -29,6 +32,9 @@ class PrakerjaConfigM {
   final bool newUrl;
   final String prakerjaApiMemberUrl;
   final String prakerjaApiCourseUrl;
+  final bool staging;
+  final String prakerjaStagingApiMemberUrl;
+  final String prakerjaStagingApiCourseUrl;
 
   factory PrakerjaConfigM.fromJson(Map<String, dynamic> json) =>
       PrakerjaConfigM(
@@ -38,5 +44,8 @@ class PrakerjaConfigM {
         newUrl: json["new_url"],
         prakerjaApiCourseUrl: json["api_course_url"],
         prakerjaApiMemberUrl: json["api_member_url"],
+        staging: json["staging"],
+        prakerjaStagingApiCourseUrl: json["api_staging_course_url"],
+        prakerjaStagingApiMemberUrl: json["api_staging_member_url"],
       );
 }
