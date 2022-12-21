@@ -70,3 +70,6 @@ final List<Map<String, String>> cardRangkaian = [
     'img': 'assets/images/webinar_prakerja/unjuk_keterampilan.png',
   },
 ];
+
+NumberFormat formatter = NumberFormat("#,###");
+NumberFormat numberFormat = NumberFormat.decimalPattern('id');

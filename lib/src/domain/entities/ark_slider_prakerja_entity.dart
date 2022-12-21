@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 // SliderPrakerjaEntity sliderPrakerjaEntityFromJson(String str) =>
 //     SliderPrakerjaEntity.fromJson(json.decode(str));
 
@@ -82,8 +84,8 @@ import 'dart:convert';
 String sliderEntityToJson(SliderPrakerjaEntity data) =>
     json.encode(data.toJson());
 
-class SliderPrakerjaEntity {
-  SliderPrakerjaEntity({
+class SliderPrakerjaEntity extends Equatable {
+  const SliderPrakerjaEntity({
     required this.success,
     required this.message,
     required this.data,
@@ -109,6 +111,9 @@ class SliderPrakerjaEntity {
         "message": message,
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
       };
+
+  @override
+  List<Object?> get props => [success, message, data];
 }
 
 class SliderDataPrakerjaEntity {

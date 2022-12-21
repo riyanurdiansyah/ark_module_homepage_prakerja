@@ -7,7 +7,6 @@ import 'package:ark_module_homepage_prakerja/src/data/dto/ark_all_ecom_dto.dart'
 import 'package:ark_module_homepage_prakerja/src/data/dto/ark_slider_prakerja_dto.dart';
 import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_ecom_prakerja_entity.dart';
 import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_prakerja_ecom_lumen_entity.dart';
-import 'package:ark_module_homepage_prakerja/utils/app_url.dart';
 import 'package:dio/dio.dart';
 
 class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
@@ -17,9 +16,10 @@ class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
   }
 
   @override
-  Future<List<HomeOneEcomEntity>> fetchOneEcom(String ecom) async {
+  Future<List<HomeOneEcomEntity>> fetchOneEcom(
+      String baseUrl, String ecom) async {
     final response = await dio.get(
-      '$prakerjaUrlStaging/api/v1/prakerja/get_prakerja_marketplace_course?mp_name=$ecom',
+      '$baseUrl/api/v1/prakerja/get_prakerja_marketplace_course?mp_name=$ecom',
       options: dioOptions,
     );
     List<HomeOneEcomEntity> oneEcom = [];
@@ -43,9 +43,9 @@ class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
   }
 
   @override
-  Future<List<AllEcomPrakerjaEntity>> fetchNewAllEcom() async {
+  Future<List<AllEcomPrakerjaEntity>> fetchNewAllEcom(String baseUrl) async {
     final response = await dio.get(
-      '$prakerjaUrlStaging/api/v1/prakerja/get_prakerja_marketplace_course',
+      '$baseUrl/api/v1/prakerja/get_prakerja_marketplace_course',
       options: dioOptions,
     );
     List<AllEcomPrakerjaEntity> allEcom = [];
@@ -66,9 +66,9 @@ class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
   }
 
   @override
-  Future<SliderPrakerjaDto> fetchSliderPrakerja() async {
+  Future<SliderPrakerjaDto> fetchSliderPrakerja(String baseUrl) async {
     final response = await dio.get(
-      "$prakerjaUrlStaging/api/v1/prakerja/homepage/banner/mobile",
+      "$baseUrl/api/v1/prakerja/homepage/banner/mobile",
       options: dioOptions,
     );
     int code = response.statusCode ?? 500;
@@ -83,9 +83,10 @@ class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
   }
 
   @override
-  Future<List<AllEcomPrakerjaDto>> fetchPelatihanTerpopuler() async {
+  Future<List<AllEcomPrakerjaDto>> fetchPelatihanTerpopuler(
+      String baseUrl) async {
     final response = await dio.get(
-      "$prakerjaUrlStaging/api/v1/prakerja/get_prakerja_popular_course",
+      "$baseUrl/api/v1/prakerja/get_prakerja_popular_course",
       options: dioOptions,
     );
     List<AllEcomPrakerjaDto> pelatihanTerpopuler = [];

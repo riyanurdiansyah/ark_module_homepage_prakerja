@@ -7,7 +7,10 @@ import 'package:ark_module_homepage_prakerja/src/data/repositories/ark_home_impl
 import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_ecom_prakerja_entity.dart';
 import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_prakerja_ecom_lumen_entity.dart';
 import 'package:ark_module_homepage_prakerja/src/domain/entities/ark_slider_prakerja_entity.dart';
+import 'package:ark_module_homepage_prakerja/src/domain/entities/new_config_entity.dart';
 import 'package:ark_module_homepage_prakerja/src/domain/usecases/ark_home_usecases.dart';
+import 'package:ark_module_homepage_prakerja/utils/app_empty_entity.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -41,8 +44,7 @@ class ArkHomePagePrakerjaController extends GetxController {
   RxList<HomeOneEcomEntity> lazadaList = <HomeOneEcomEntity>[].obs;
 
   // FOR BANNER
-  final Rx<SliderPrakerjaEntity> _sliderImage =
-      SliderPrakerjaEntity(success: false, data: [], message: '').obs;
+  final Rx<SliderPrakerjaEntity> _sliderImage = emptySlider.obs;
   Rx<SliderPrakerjaEntity> get sliderImage => _sliderImage;
 
   late ArkUseCases _useCases;
@@ -54,12 +56,15 @@ class ArkHomePagePrakerjaController extends GetxController {
   final Rx<int> _indexBeliDiMarketPlace = 0.obs;
   Rx<int> get indexBeliDiMarketPlace => _indexBeliDiMarketPlace;
 
+  final Rx<String> _baseUrlApiCourse = "".obs;
+
   @override
   void onInit() async {
     _changeLoading(true);
     super.onInit();
+    await _fetchConfig();
     await _setup();
-    fetchAllNewEcom();
+    fetchAllNewEcomWebinar();
     fetchSliderPrakerja();
     fetchPelatihanTerpopuler();
     await _changeLoading(false);
@@ -72,6 +77,15 @@ class ArkHomePagePrakerjaController extends GetxController {
     _repository = ArkHomeRepositoryImpl(_dataSource);
     //INITIALIZE USECASE
     _useCases = ArkUseCases(_repository);
+  }
+
+  Future _fetchConfig() async {
+    final response = await FirebaseFirestore.instance
+        .collection('config')
+        .doc('config')
+        .get();
+    final data = NewConfigEntity.fromJson(response.data()!);
+    _baseUrlApiCourse.value = data.prakerja.prakerjaApiCourseUrl;
   }
 
   Future<bool> _changeLoading(bool val) async {
@@ -91,7 +105,8 @@ class ArkHomePagePrakerjaController extends GetxController {
 
   void fetchSliderPrakerja() async {
     _changeLoadingSlider(true);
-    final response = await _useCases.fetchSliderPrakerja();
+    final response =
+        await _useCases.fetchSliderPrakerja(_baseUrlApiCourse.value);
     response.fold((l) {
       log('RESPONSE ERROR FETCH SLIDER PRAKERJA $l');
       return ExceptionHandle.execute(l);
@@ -102,7 +117,8 @@ class ArkHomePagePrakerjaController extends GetxController {
   }
 
   Future<List<AllEcomPrakerjaDto>> fetchPelatihanTerpopuler() async {
-    final response = await _useCases.fetchPelatihanTerpopuler();
+    final response =
+        await _useCases.fetchPelatihanTerpopuler(_baseUrlApiCourse.value);
     response.fold((l) {
       log('RESPONSE ERROR FETCH PELATIHAN TERPOPULER $l');
       return ExceptionHandle.execute(l);
@@ -112,23 +128,38 @@ class ArkHomePagePrakerjaController extends GetxController {
     return _pelatihanTerpopuler;
   }
 
-  Future<List<AllEcomPrakerjaEntity>> fetchAllNewEcom() async {
+  Future<List<AllEcomPrakerjaEntity>> fetchAllNewEcomWebinar() async {
+    log("CEK WOI");
     _changeLoadingEcom(true);
-    final response = await _useCases.fetchNewAllEcom();
+    final response = await _useCases.fetchNewAllEcom(_baseUrlApiCourse.value);
     response.fold((l) {
       log('RESPONSE ERROR FETCH ALL NEW ECOM $l');
       return ExceptionHandle.execute(l);
     }, (r) {
       return _mainEcomNewClasses.value = r;
     });
-    _changeLoadingEcom(false);
+    await _changeLoadingEcom(false);
+    return _mainEcomNewClasses;
+  }
+
+  Future<List<AllEcomPrakerjaEntity>> fetchAllNewEcom() async {
+    _changeLoadingEcom(true);
+    final response = await _useCases.fetchNewAllEcom(_baseUrlApiCourse.value);
+    response.fold((l) {
+      log('RESPONSE ERROR FETCH ALL NEW ECOM $l');
+      return ExceptionHandle.execute(l);
+    }, (r) {
+      return _mainEcomNewClasses.value = r;
+    });
+    await _changeLoadingEcom(false);
     return _mainEcomNewClasses;
   }
 
   // FETCH ECOM
   Future fetchOneEcom(String ecom) async {
     _changeLoadingEcom(true);
-    final response = await _useCases.fetchOneEcom(ecom);
+    final response =
+        await _useCases.fetchOneEcom(_baseUrlApiCourse.value, ecom);
     response.fold((l) {
       return ExceptionHandle.execute(l);
     }, (r) {
@@ -147,6 +178,6 @@ class ArkHomePagePrakerjaController extends GetxController {
         pijarMahirList.assignAll(_listHomeEcom);
       }
     });
-    _changeLoadingEcom(false);
+    await _changeLoadingEcom(false);
   }
 }

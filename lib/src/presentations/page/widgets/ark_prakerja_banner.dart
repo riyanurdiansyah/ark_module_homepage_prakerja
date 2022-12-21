@@ -15,19 +15,19 @@ class ArkPrakerjaBanner extends StatelessWidget {
     return isWebinar == true
         ? Card(
             margin: EdgeInsets.zero,
-            elevation: 3,
+            elevation: 2,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.zero,
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: 13,
-                horizontal: 12,
+                horizontal: 4,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Flexible(
+                  Expanded(
                     flex: 1,
                     child: GestureDetector(
                       onTap: () async {
@@ -66,7 +66,7 @@ class ArkPrakerjaBanner extends StatelessWidget {
                     height: 53,
                     color: const Color(0xffF1F2F4),
                   ),
-                  Flexible(
+                  Expanded(
                     flex: 1,
                     child: GestureDetector(
                         onTap: () {
@@ -96,7 +96,7 @@ class ArkPrakerjaBanner extends StatelessWidget {
                     height: 53,
                     color: const Color(0xffF1F2F4),
                   ),
-                  Flexible(
+                  Expanded(
                     flex: 1,
                     child: GestureDetector(
                       onTap: () {

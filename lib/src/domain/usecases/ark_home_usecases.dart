@@ -12,16 +12,19 @@ class ArkUseCases {
   ArkUseCases(this.repository);
 
   Future<Either<Failure, List<HomeOneEcomEntity>>> fetchOneEcom(
-          String ecom) async =>
-      await repository.fetchOneEcom(ecom);
+          String baseUrl, String ecom) async =>
+      await repository.fetchOneEcom(baseUrl, ecom);
 
-  Future<Either<Failure, List<AllEcomPrakerjaEntity>>>
-      fetchNewAllEcom() async => await repository.fetchNewAllEcom();
+  Future<Either<Failure, List<AllEcomPrakerjaEntity>>> fetchNewAllEcom(
+    String baseUrl,
+  ) async =>
+      await repository.fetchNewAllEcom(baseUrl);
 
-  Future<Either<Failure, SliderPrakerjaEntity>> fetchSliderPrakerja() async =>
-      await repository.fetchSliderPrakerja();
+  Future<Either<Failure, SliderPrakerjaEntity>> fetchSliderPrakerja(
+          String baseUrl) async =>
+      await repository.fetchSliderPrakerja(baseUrl);
 
-  Future<Either<Failure, List<AllEcomPrakerjaDto>>>
-      fetchPelatihanTerpopuler() async =>
-          await repository.fetchPelatihanTerpopuler();
+  Future<Either<Failure, List<AllEcomPrakerjaDto>>> fetchPelatihanTerpopuler(
+          String baseUrl) async =>
+      await repository.fetchPelatihanTerpopuler(baseUrl);
 }

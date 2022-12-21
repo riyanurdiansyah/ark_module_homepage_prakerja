@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:ark_module_homepage_prakerja/ark_module_homepage_prakerja.dart';
 import 'package:ark_module_homepage_prakerja/src/presentations/page/widgets/ark_slider_banner.dart';
+import 'package:ark_module_homepage_prakerja/utils/app_empty_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -92,11 +95,13 @@ class ArkHomePagePrakerja extends StatelessWidget {
                       height: 20,
                     ),
                     //  BANNER
-                    ArkPrakerjaSliderFromBackend(controller: _prakerjaHC),
+                    if (_prakerjaHC.sliderImage.value != emptySlider)
+                      ArkPrakerjaSliderFromBackend(controller: _prakerjaHC),
 
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    if (_prakerjaHC.sliderImage.value != emptySlider)
+                      const SizedBox(
+                        height: 30,
+                      ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 16,
@@ -113,7 +118,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(
-                            height: 19,
+                            height: 18,
                           ),
                           // MARKET PLACE LOGO
                           Wrap(
@@ -217,7 +222,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: 18,
+                      height: 16,
                     ),
                     // FOR CARD MIDDLE
                     // ListView.builder(
@@ -516,6 +521,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                 ),
                                 isOutlinedButton: true,
                                 onPressed: () {
+                                  log("CEK : ${_prakerjaHC.ecommSelected.value}");
                                   _prakerjaHC.indexBeliDiMarketPlace.value = 0;
                                   Get.toNamed(
                                     '/beli-di-market-place-webinar',
