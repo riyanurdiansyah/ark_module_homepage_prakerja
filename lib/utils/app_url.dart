@@ -10,8 +10,6 @@ const String apiGatewayUrl = 'https://api-gateway.arkademi.com';
 
 const String apiOrderUrl = 'https://api-orders.arkademi.com';
 
-const String prakerjaUrlLumen = 'https://prakerja-api-course.arkademi.com';
-
 const String courseUrl = "$apiCourseUrl/api/v1/course";
 
 const String prakerjaUrlStaging =
