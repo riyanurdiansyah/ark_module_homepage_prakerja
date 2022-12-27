@@ -217,185 +217,195 @@ class ArkBeliDiMarketPlaceWebinar extends StatelessWidget {
                                   0 * 1000
                               : _prakerjaHc.listHomeEcome[i].tanggalSelesai ??
                                   0 * 1000;
-                          return Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            elevation: 3,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(6),
-                                    bottomLeft: Radius.circular(6),
-                                  ),
-                                  child: Image.network(
-                                    _prakerjaHc.listHomeEcome.isEmpty
-                                        ? _prakerjaHc
-                                                .mainEcomNewClassess[i].image ??
-                                            "..."
-                                        : _prakerjaHc.listHomeEcome[i].image ??
-                                            "...",
-                                    width: 97,
-                                    height: 137,
-                                    fit: BoxFit.fitHeight,
-                                    errorBuilder: (_, __, ___) => Image.asset(
-                                      'assets/images/arkademi-icon.png',
-                                      color: Colors.blue,
+
+                          final title = _prakerjaHc.listHomeEcome.isEmpty
+                              ? _prakerjaHc.mainEcomNewClassess[i].title ??
+                                  "..."
+                              : _prakerjaHc.listHomeEcome[i].title ?? "...";
+
+                          final id = _prakerjaHc.listHomeEcome.isEmpty
+                              ? _prakerjaHc.mainEcomNewClassess[i].id ?? 0
+                              : _prakerjaHc.listHomeEcome[i].id ?? 0;
+                          return GestureDetector(
+                            onTap: () =>
+                                Get.toNamed('/class-prakerja', arguments: id),
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              elevation: 3,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(6),
+                                      bottomLeft: Radius.circular(6),
+                                    ),
+                                    child: Image.network(
+                                      _prakerjaHc.listHomeEcome.isEmpty
+                                          ? _prakerjaHc.mainEcomNewClassess[i]
+                                                  .image ??
+                                              "..."
+                                          : _prakerjaHc
+                                                  .listHomeEcome[i].image ??
+                                              "...",
+                                      width: 97,
+                                      height: 137,
+                                      fit: BoxFit.fitHeight,
+                                      errorBuilder: (_, __, ___) => Image.asset(
+                                        'assets/images/arkademi-icon.png',
+                                        color: Colors.blue,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: 14,
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 22, bottom: 14, top: 11),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        if (tglMulai != 0 && tglSelesai != 0)
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 11,
-                                              vertical: 3,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(2),
-                                              color: const Color(0xff234061),
-                                            ),
-                                            child: Text(
-                                              "${DateFormat.MMMd('id').format(DateTime.fromMillisecondsSinceEpoch(tglMulai))} - ${DateFormat.yMMMMd('id').format(DateTime.fromMillisecondsSinceEpoch(tglSelesai))}",
-                                              style: const TextStyle(
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.white,
+                                  const SizedBox(
+                                    width: 14,
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 22, bottom: 14, top: 11),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          if (tglMulai != 0 && tglSelesai != 0)
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: 11,
+                                                vertical: 3,
                                               ),
-                                            ),
-                                          ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          _prakerjaHc.listHomeEcome.isEmpty
-                                              ? _prakerjaHc
-                                                      .mainEcomNewClassess[i]
-                                                      .title ??
-                                                  "..."
-                                              : _prakerjaHc
-                                                      .listHomeEcome[i].title ??
-                                                  "...",
-                                          maxLines: 3,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                            fontSize: 10.5,
-                                            fontWeight: FontWeight.w700,
-                                            color: Color(0xff06284F),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                const Icon(
-                                                  Icons.star,
-                                                  color: Color(0xffFAB400),
-                                                  size: 11,
-                                                ),
-                                                const SizedBox(
-                                                  width: 4,
-                                                ),
-                                                Text(
-                                                  _prakerjaHc
-                                                          .listHomeEcome.isEmpty
-                                                      ? _prakerjaHc
-                                                          .mainEcomNewClassess[
-                                                              i]
-                                                          .rating!
-                                                      : _prakerjaHc
-                                                          .listHomeEcome[i]
-                                                          .rating!,
-                                                  style: const TextStyle(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xff194476),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              width: 13,
-                                            ),
-                                            Row(
-                                              children: [
-                                                Image.asset(
-                                                  'assets/images/people_with_rectangle.png',
-                                                  width: 12,
-                                                  height: 12,
-                                                ),
-                                                const SizedBox(
-                                                  width: 4,
-                                                ),
-                                                Text(
-                                                  "${_prakerjaHc.listHomeEcome.isEmpty ? _prakerjaHc.mainEcomNewClassess[i].siswa ?? "35" : _prakerjaHc.listHomeEcome[i].siswa ?? "35"} Siswa",
-                                                  style: const TextStyle(
-                                                    fontSize: 10,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Color(0xff194476),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 9,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              salePrice == "" ||
-                                                      salePrice == "0"
-                                                  ? currencyFormatter
-                                                      .format(int.parse(price))
-                                                  : currencyFormatter.format(
-                                                      int.parse(salePrice)),
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w800,
-                                                color: Color(0xff06284F),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(2),
+                                                color: const Color(0xff234061),
                                               ),
-                                            ),
-                                            const SizedBox(
-                                              width: 9,
-                                            ),
-                                            if (salePrice != "" &&
-                                                salePrice != "0")
-                                              Text(
-                                                currencyFormatter
-                                                    .format(int.parse(price)),
+                                              child: Text(
+                                                "${DateFormat.MMMd('id').format(DateTime.fromMillisecondsSinceEpoch(tglMulai))} - ${DateFormat.yMMMMd('id').format(DateTime.fromMillisecondsSinceEpoch(tglSelesai))}",
                                                 style: const TextStyle(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Color(0xffE34D46),
-                                                  decoration: TextDecoration
-                                                      .lineThrough,
+                                                  fontSize: 11,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.white,
                                                 ),
                                               ),
-                                          ],
-                                        ),
-                                      ],
+                                            ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            title,
+                                            maxLines: 3,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                              fontSize: 10.5,
+                                              fontWeight: FontWeight.w700,
+                                              color: Color(0xff06284F),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  const Icon(
+                                                    Icons.star,
+                                                    color: Color(0xffFAB400),
+                                                    size: 11,
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 4,
+                                                  ),
+                                                  Text(
+                                                    _prakerjaHc.listHomeEcome
+                                                            .isEmpty
+                                                        ? _prakerjaHc
+                                                            .mainEcomNewClassess[
+                                                                i]
+                                                            .rating!
+                                                        : _prakerjaHc
+                                                            .listHomeEcome[i]
+                                                            .rating!,
+                                                    style: const TextStyle(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Color(0xff194476),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                width: 13,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Image.asset(
+                                                    'assets/images/people_with_rectangle.png',
+                                                    width: 12,
+                                                    height: 12,
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 4,
+                                                  ),
+                                                  Text(
+                                                    "${_prakerjaHc.listHomeEcome.isEmpty ? _prakerjaHc.mainEcomNewClassess[i].siswa ?? "35" : _prakerjaHc.listHomeEcome[i].siswa ?? "35"} Siswa",
+                                                    style: const TextStyle(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Color(0xff194476),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 9,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                salePrice == "" ||
+                                                        salePrice == "0"
+                                                    ? currencyFormatter.format(
+                                                        int.parse(price))
+                                                    : currencyFormatter.format(
+                                                        int.parse(salePrice)),
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w800,
+                                                  color: Color(0xff06284F),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 9,
+                                              ),
+                                              if (salePrice != "" &&
+                                                  salePrice != "0")
+                                                Text(
+                                                  currencyFormatter
+                                                      .format(int.parse(price)),
+                                                  style: const TextStyle(
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Color(0xffE34D46),
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           );
                         },

@@ -593,7 +593,7 @@ class ArkHomePagePrakerja extends StatelessWidget {
                               return InkWell(
                                 onTap: () => Get.toNamed('/class-prakerja',
                                     arguments: _prakerjaHC
-                                        .mainEcomNewClassess[index].id),
+                                        .pelatihanTerpopuler[index].id),
                                 child: Card(
                                   margin: const EdgeInsets.only(bottom: 15),
                                   shape: RoundedRectangleBorder(

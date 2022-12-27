@@ -71,6 +71,8 @@ class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
       "$baseUrl/api/v1/prakerja/homepage/banner/mobile",
       options: dioOptions,
     );
+    log('RES CEK : ${response.data}');
+    log('RES CEK : ${"$baseUrl/api/v1/prakerja/homepage/banner/mobile"}');
     int code = response.statusCode ?? 500;
     if (code == 200) {
       return SliderPrakerjaDto.fromJson(response.data);
