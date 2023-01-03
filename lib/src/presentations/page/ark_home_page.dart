@@ -1,12 +1,14 @@
 import 'dart:developer';
 
 import 'package:ark_module_homepage_prakerja/ark_module_homepage_prakerja.dart';
+import 'package:ark_module_homepage_prakerja/src/presentations/page/widgets/ark_all_ecom_class.dart';
+import 'package:ark_module_homepage_prakerja/src/presentations/page/widgets/ark_one_ecom_class.dart';
+import 'package:ark_module_homepage_prakerja/src/presentations/page/widgets/ark_pelatihan_terpopuler.dart';
 import 'package:ark_module_homepage_prakerja/src/presentations/page/widgets/ark_slider_banner.dart';
 import 'package:ark_module_homepage_prakerja/utils/app_empty_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class ArkHomePagePrakerja extends StatelessWidget {
   ArkHomePagePrakerja({Key? key}) : super(key: key);
@@ -152,7 +154,6 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                               _prakerjaHC.bukalapakList;
                                         }
                                         break;
-
                                       case 2:
                                         {
                                           if (_prakerjaHC
@@ -162,6 +163,17 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                           }
                                           _prakerjaHC.listHomeEcome.value =
                                               _prakerjaHC.sekolahmuList;
+                                        }
+                                        break;
+                                      case 3:
+                                        {
+                                          if (_prakerjaHC
+                                              .pintariaList.isEmpty) {
+                                            _prakerjaHC.fetchOneEcom(
+                                                marketPlaceWebinar[i]['title']);
+                                          }
+                                          _prakerjaHC.listHomeEcome.value =
+                                              _prakerjaHC.pintariaList;
                                         }
                                         break;
                                       case 4:
@@ -176,6 +188,8 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                         }
                                         break;
                                     }
+
+                                    log('LISTT HOME ECOM ${_prakerjaHC.listHomeEcome.length} NAME ${marketPlaceWebinar[i]['title']}');
                                   },
                                   child: Container(
                                     width: 105,
@@ -225,15 +239,9 @@ class ArkHomePagePrakerja extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    // FOR CARD MIDDLE
-                    // ListView.builder(
-                    //               padding: const EdgeInsets.symmetric(horizontal: 16),
-                    //               itemCount: _pHC.allEcomNewClasses.length,
-                    //               scrollDirection: Axis.horizontal,
-                    //               itemBuilder: (context, i) {
-                    //                 return CardClassSquare(i);
-                    //               },
-                    //             ),
+                    /* FOR CARD MIDDLE
+                    CARD BELI DI MARKET PLACE
+                    */
                     Obx(
                       () => _prakerjaHC.isLoadingEcom.value == true
                           ? const SizedBox(
@@ -243,272 +251,9 @@ class ArkHomePagePrakerja extends StatelessWidget {
                               ),
                             )
                           // BELI DI MARKET PLACE
-                          : SizedBox(
-                              height: 290,
-                              child: ListView.builder(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                ),
-                                scrollDirection: Axis.horizontal,
-                                itemCount: _prakerjaHC.listHomeEcome.isEmpty
-                                    ? _prakerjaHC.mainEcomNewClassess.length
-                                    : _prakerjaHC.listHomeEcome.length,
-                                itemBuilder: (context, index) {
-                                  final tglMulai =
-                                      _prakerjaHC.listHomeEcome.isEmpty
-                                          ? _prakerjaHC
-                                                  .mainEcomNewClassess[index]
-                                                  .tanggalMulai ??
-                                              0 * 1000
-                                          : _prakerjaHC.listHomeEcome[index]
-                                                  .tanggalMulai ??
-                                              0 * 1000;
-                                  final tglSelesai =
-                                      _prakerjaHC.listHomeEcome.isEmpty
-                                          ? _prakerjaHC
-                                                  .mainEcomNewClassess[index]
-                                                  .tanggalSelesai ??
-                                              0 * 1000
-                                          : _prakerjaHC.listHomeEcome[index]
-                                                  .tanggalSelesai ??
-                                              0 * 1000;
-                                  return InkWell(
-                                    onTap: () => Get.toNamed('/class-prakerja',
-                                        arguments: _prakerjaHC
-                                            .mainEcomNewClassess[index].id),
-                                    child: SizedBox(
-                                      width: 270,
-                                      child: Card(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(7),
-                                        ),
-                                        elevation: 3,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              height: 110,
-                                              width: 270,
-                                              decoration: BoxDecoration(
-                                                color: Colors.grey,
-                                                borderRadius:
-                                                    const BorderRadius.only(
-                                                  topLeft: Radius.circular(7),
-                                                  topRight: Radius.circular(7),
-                                                ),
-                                                image: DecorationImage(
-                                                    image: NetworkImage(
-                                                      _prakerjaHC
-                                                          .mainEcomNewClassess[
-                                                              index]
-                                                          .image!,
-                                                    ),
-                                                    fit: BoxFit.fitWidth),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 12,
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 19),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  if (tglMulai != 0 &&
-                                                      tglSelesai != 0)
-                                                    Container(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                        horizontal: 11,
-                                                        vertical: 3,
-                                                      ),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(2),
-                                                        color: const Color(
-                                                            0xff234061),
-                                                      ),
-                                                      child: Text(
-                                                        "${DateFormat.MMMd('id').format(DateTime.fromMillisecondsSinceEpoch(tglMulai))} - ${DateFormat.yMMMMd('id').format(DateTime.fromMillisecondsSinceEpoch(tglSelesai))}",
-                                                        style: const TextStyle(
-                                                          fontSize: 11,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: Colors.white,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  const SizedBox(
-                                                    height: 15,
-                                                  ),
-                                                  Text(
-                                                    _prakerjaHC
-                                                        .mainEcomNewClassess[
-                                                            index]
-                                                        .title!,
-                                                    style: const TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      color: Color(0xff06284F),
-                                                    ),
-                                                    maxLines: 3,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 14,
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          const Icon(
-                                                            Icons.star,
-                                                            color: Color(
-                                                                0xffFAB400),
-                                                            size: 11,
-                                                          ),
-                                                          const SizedBox(
-                                                            width: 4,
-                                                          ),
-                                                          if (_prakerjaHC
-                                                                  .mainEcomNewClassess[
-                                                                      index]
-                                                                  .rating! !=
-                                                              '')
-                                                            Text(
-                                                              double.parse(_prakerjaHC
-                                                                          .mainEcomNewClassess[
-                                                                              index]
-                                                                          .rating!) <
-                                                                      3.0
-                                                                  ? '5.0'
-                                                                  : _prakerjaHC
-                                                                      .mainEcomNewClassess[
-                                                                          index]
-                                                                      .rating!,
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 10,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                color: Color(
-                                                                    0xff194476),
-                                                                fontFamily:
-                                                                    'SourceSansPro',
-                                                              ),
-                                                            ),
-                                                        ],
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 13,
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          Image.asset(
-                                                            'assets/images/people_with_rectangle.png',
-                                                            width: 12,
-                                                            height: 12,
-                                                          ),
-                                                          const SizedBox(
-                                                            width: 4,
-                                                          ),
-                                                          const Text(
-                                                            // '${(int.parse(_prakerjaHC.mainEcomNewClassess[index].siswa!) < 5) ? 5 : _prakerjaHC.mainEcomNewClassess[index].siswa!} siswa',
-                                                            //  CHANGING BY REQUEST
-                                                            '> 1.000 siswa',
-                                                            style: TextStyle(
-                                                              fontSize: 10,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              color: Color(
-                                                                  0xff194476),
-                                                              fontFamily:
-                                                                  'SourceSansPro',
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 14,
-                                                  ),
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
-                                                    children: [
-                                                      Text(
-                                                        currencyFormatter
-                                                            .format(
-                                                          int.parse(_prakerjaHC
-                                                              .mainEcomNewClassess[
-                                                                  index]
-                                                              .price!),
-                                                        ),
-                                                        style: const TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w800,
-                                                          color:
-                                                              Color(0xff06284F),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 6,
-                                                      ),
-                                                      _prakerjaHC
-                                                                  .mainEcomNewClassess[
-                                                                      index]
-                                                                  .sale ==
-                                                              ''
-                                                          ? const SizedBox()
-                                                          : Text(
-                                                              currencyFormatter
-                                                                  .format(
-                                                                int.parse(_prakerjaHC
-                                                                    .mainEcomNewClassess[
-                                                                        index]
-                                                                    .sale!),
-                                                              ),
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 10,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                color: Color(
-                                                                    0xffE34D46),
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .lineThrough,
-                                                              ),
-                                                            ),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 12,
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
+                          : _prakerjaHC.listHomeEcome.isEmpty
+                              ? ArkAllEcomClass(prakerjaHC: _prakerjaHC)
+                              : ArkOneEcomClass(prakerjaHC: _prakerjaHC),
                     ),
                     const SizedBox(
                       height: 26,
@@ -573,250 +318,8 @@ class ArkHomePagePrakerja extends StatelessWidget {
                             height: 17,
                           ),
                           // PELATIHAN TERPOPULER
-                          ListView.builder(
-                            physics: const ScrollPhysics(),
-                            shrinkWrap: true,
-                            padding: EdgeInsets.zero,
-                            itemCount:
-                                _prakerjaHC.pelatihanTerpopuler.length > 4
-                                    ? 4
-                                    : _prakerjaHC.pelatihanTerpopuler.length,
-                            itemBuilder: (context, index) {
-                              final tglSelesaiPopuler = _prakerjaHC
-                                      .pelatihanTerpopuler[index]
-                                      .tanggalSelesai ??
-                                  0;
-
-                              final tglMulaiPopuler = _prakerjaHC
-                                      .pelatihanTerpopuler[index]
-                                      .tanggalMulai ??
-                                  0;
-                              return InkWell(
-                                onTap: () => Get.toNamed('/class-prakerja',
-                                    arguments: _prakerjaHC
-                                        .pelatihanTerpopuler[index].id),
-                                child: Card(
-                                  margin: const EdgeInsets.only(bottom: 15),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  elevation: 3,
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(6),
-                                          bottomLeft: Radius.circular(6),
-                                        ),
-                                        child: Image.network(
-                                          _prakerjaHC.pelatihanTerpopuler[index]
-                                              .image!,
-                                          width: 97,
-                                          height: 147,
-                                          fit: BoxFit.fitHeight,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 14,
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 22, bottom: 14, top: 14),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              if (tglMulaiPopuler != 0 &&
-                                                  tglSelesaiPopuler != 0)
-                                                Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    horizontal: 11,
-                                                    vertical: 3,
-                                                  ),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            2),
-                                                    color:
-                                                        const Color(0xff234061),
-                                                  ),
-                                                  child: Text(
-                                                    // TODO CHANGE DATE OF WEBINAR
-                                                    "${DateFormat.MMMd('id').format(DateTime.fromMillisecondsSinceEpoch(tglMulaiPopuler))} - ${DateFormat.yMMMMd('id').format(DateTime.fromMillisecondsSinceEpoch(tglSelesaiPopuler))}",
-                                                    style: const TextStyle(
-                                                      fontSize: 11,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                ),
-                                              const SizedBox(
-                                                height: 9,
-                                              ),
-                                              Text(
-                                                _prakerjaHC
-                                                    .pelatihanTerpopuler[index]
-                                                    .title!,
-                                                maxLines: 3,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                  fontSize: 10.5,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Color(0xff06284F),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 9,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      const Icon(
-                                                        Icons.star,
-                                                        color:
-                                                            Color(0xffFAB400),
-                                                        size: 11,
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 4,
-                                                      ),
-                                                      Text(
-                                                        double.parse(_prakerjaHC
-                                                                    .pelatihanTerpopuler[
-                                                                        index]
-                                                                    .rating!) <
-                                                                3.0
-                                                            ? '5.0'
-                                                            : _prakerjaHC
-                                                                .pelatihanTerpopuler[
-                                                                    index]
-                                                                .rating!,
-                                                        style: const TextStyle(
-                                                          fontSize: 10,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color:
-                                                              Color(0xff194476),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 13,
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Image.asset(
-                                                        'assets/images/people_with_rectangle.png',
-                                                        width: 12,
-                                                        height: 12,
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 4,
-                                                      ),
-                                                      const Text(
-                                                        // int.parse(_prakerjaHC
-                                                        //             .pelatihanTerpopuler[
-                                                        //                 index]
-                                                        //             .siswa!) <
-                                                        //         5
-                                                        //     ? '5'
-                                                        //     : _prakerjaHC
-                                                        //         .pelatihanTerpopuler[
-                                                        //             index]
-                                                        //         .siswa!,
-
-                                                        //  CHANGING BY REQUEST
-                                                        '> 1.000 siswa',
-                                                        style: TextStyle(
-                                                          fontSize: 10,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color:
-                                                              Color(0xff194476),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 7,
-                                                      ),
-                                                      // const Text(
-                                                      //   'siswa',
-                                                      //   style: TextStyle(
-                                                      //     fontSize: 10,
-                                                      //     fontWeight:
-                                                      //         FontWeight.w500,
-                                                      //     color:
-                                                      //         Color(0xff194476),
-                                                      //   ),
-                                                      // ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                height: 14,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    currencyFormatter.format(
-                                                        int.parse(_prakerjaHC
-                                                            .pelatihanTerpopuler[
-                                                                index]
-                                                            .price!)),
-                                                    style: const TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w800,
-                                                      color: Color(0xff06284F),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 9,
-                                                  ),
-                                                  _prakerjaHC
-                                                              .pelatihanTerpopuler[
-                                                                  index]
-                                                              .sale ==
-                                                          ''
-                                                      ? const SizedBox()
-                                                      : Text(
-                                                          currencyFormatter
-                                                              .format(int.parse(
-                                                                  _prakerjaHC
-                                                                      .pelatihanTerpopuler[
-                                                                          index]
-                                                                      .sale!)),
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 10,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            color: Color(
-                                                                0xffE34D46),
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .lineThrough,
-                                                          ),
-                                                        ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
+                          ArkPelatihanTerpopuler(prakerjaHC: _prakerjaHC),
+                          // END PELATIHAN TERPOPULER
                           const SizedBox(
                             height: 40,
                           ),

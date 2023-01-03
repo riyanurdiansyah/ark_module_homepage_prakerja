@@ -24,14 +24,12 @@ class ArkHomeRemoteDatasourcesImpl implements ArkHomeRemoteDatasources {
     );
     List<HomeOneEcomEntity> oneEcom = [];
     int code = response.statusCode ?? 500;
-
     if (code == 200) {
       final jsonResponse = jsonDecode(jsonEncode(response.data));
       for (int i = 0; i < jsonResponse.length; i++) {
         log('ONE ECOM $jsonResponse');
         oneEcom.add(HomeOneEcomEntity.fromJson(jsonResponse[i]));
       }
-
       log('FROM ONE ECOM ${oneEcom.length}');
       return oneEcom;
     }

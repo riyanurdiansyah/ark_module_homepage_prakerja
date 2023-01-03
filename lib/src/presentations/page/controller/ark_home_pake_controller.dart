@@ -152,6 +152,14 @@ class ArkHomePagePrakerjaController extends GetxController {
     return _mainEcomNewClasses;
   }
 
+  void clearOneEcom() {
+    tokopediaList.clear();
+    bukalapakList.clear();
+    sekolahmuList.clear();
+    pintariaList.clear();
+    pijarMahirList.clear();
+  }
+
   // FETCH ECOM
   Future fetchOneEcom(String ecom) async {
     _changeLoadingEcom(true);
@@ -159,10 +167,13 @@ class ArkHomePagePrakerjaController extends GetxController {
         await _useCases.fetchOneEcom(_baseUrlApiCourse.value, ecom);
     response.fold((l) {
       return ExceptionHandle.execute(l);
-    }, (r) {
-      _listHomeEcom.value = [];
-      _homeEcom.value = r;
-      _listHomeEcom.assignAll(_homeEcom);
+    }, (r) async {
+      /* THIS FUNCTION TO MAKE A EMPTY LIST
+      FOR MAKE FETCH ONE ECOM FUNCTION RUNNING EVERY E COMMERCE TAPPED
+      */
+      clearOneEcom();
+
+      _listHomeEcom.value = r;
       if (ecom == 'tokopedia') {
         tokopediaList.assignAll(_listHomeEcom);
       } else if (ecom == 'bukalapak') {
@@ -174,7 +185,11 @@ class ArkHomePagePrakerjaController extends GetxController {
       } else {
         pijarMahirList.assignAll(_listHomeEcom);
       }
+      await _changeLoadingEcom(false);
+
+      log('LIST ONE ECOM ${_listHomeEcom.length} HOME ECOM ${_homeEcom.length} RESPOSE R ${r.length}');
     });
+
     await _changeLoadingEcom(false);
   }
 }
