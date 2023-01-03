@@ -1,10 +1,11 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:ark_module_homepage_prakerja/src/presentations/page/controller/ark_home_pake_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:get/get.dart';
 
 import '../../../../utils/app_color.dart';
 import '../../../../utils/constants.dart';
@@ -227,8 +228,10 @@ class ArkBeliDiMarketPlaceWebinar extends StatelessWidget {
                               ? _prakerjaHc.mainEcomNewClassess[i].id ?? 0
                               : _prakerjaHc.listHomeEcome[i].id ?? 0;
                           return GestureDetector(
-                            onTap: () =>
-                                Get.toNamed('/class-prakerja', arguments: id),
+                            onTap: () {
+                              log('beli di market place tapped');
+                              Get.toNamed('/class-prakerja', arguments: id);
+                            },
                             child: Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(6),
@@ -351,9 +354,11 @@ class ArkBeliDiMarketPlaceWebinar extends StatelessWidget {
                                                   const SizedBox(
                                                     width: 4,
                                                   ),
-                                                  Text(
-                                                    "${_prakerjaHc.listHomeEcome.isEmpty ? _prakerjaHc.mainEcomNewClassess[i].siswa ?? "35" : _prakerjaHc.listHomeEcome[i].siswa ?? "35"} Siswa",
-                                                    style: const TextStyle(
+                                                  const Text(
+                                                    // "${_prakerjaHc.listHomeEcome.isEmpty ? _prakerjaHc.mainEcomNewClassess[i].siswa ?? "35" : _prakerjaHc.listHomeEcome[i].siswa ?? "35"} Siswa",
+                                                    //  CHANGING BY REQUEST
+                                                    '> 1.000 siswa',
+                                                    style: TextStyle(
                                                       fontSize: 10,
                                                       fontWeight:
                                                           FontWeight.w500,

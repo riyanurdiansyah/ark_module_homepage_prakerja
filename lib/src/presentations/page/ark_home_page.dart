@@ -421,10 +421,11 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                                           const SizedBox(
                                                             width: 4,
                                                           ),
-                                                          Text(
-                                                            '${(int.parse(_prakerjaHC.mainEcomNewClassess[index].siswa!) < 5) ? 5 : _prakerjaHC.mainEcomNewClassess[index].siswa!} siswa',
-                                                            style:
-                                                                const TextStyle(
+                                                          const Text(
+                                                            // '${(int.parse(_prakerjaHC.mainEcomNewClassess[index].siswa!) < 5) ? 5 : _prakerjaHC.mainEcomNewClassess[index].siswa!} siswa',
+                                                            //  CHANGING BY REQUEST
+                                                            '> 1.000 siswa',
+                                                            style: TextStyle(
                                                               fontSize: 10,
                                                               fontWeight:
                                                                   FontWeight
@@ -719,18 +720,21 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                                       const SizedBox(
                                                         width: 4,
                                                       ),
-                                                      Text(
-                                                        int.parse(_prakerjaHC
-                                                                    .pelatihanTerpopuler[
-                                                                        index]
-                                                                    .siswa!) <
-                                                                5
-                                                            ? '5'
-                                                            : _prakerjaHC
-                                                                .pelatihanTerpopuler[
-                                                                    index]
-                                                                .siswa!,
-                                                        style: const TextStyle(
+                                                      const Text(
+                                                        // int.parse(_prakerjaHC
+                                                        //             .pelatihanTerpopuler[
+                                                        //                 index]
+                                                        //             .siswa!) <
+                                                        //         5
+                                                        //     ? '5'
+                                                        //     : _prakerjaHC
+                                                        //         .pelatihanTerpopuler[
+                                                        //             index]
+                                                        //         .siswa!,
+
+                                                        //  CHANGING BY REQUEST
+                                                        '> 1.000 siswa',
+                                                        style: TextStyle(
                                                           fontSize: 10,
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -741,16 +745,16 @@ class ArkHomePagePrakerja extends StatelessWidget {
                                                       const SizedBox(
                                                         width: 7,
                                                       ),
-                                                      const Text(
-                                                        'siswa',
-                                                        style: TextStyle(
-                                                          fontSize: 10,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          color:
-                                                              Color(0xff194476),
-                                                        ),
-                                                      ),
+                                                      // const Text(
+                                                      //   'siswa',
+                                                      //   style: TextStyle(
+                                                      //     fontSize: 10,
+                                                      //     fontWeight:
+                                                      //         FontWeight.w500,
+                                                      //     color:
+                                                      //         Color(0xff194476),
+                                                      //   ),
+                                                      // ),
                                                     ],
                                                   ),
                                                 ],
