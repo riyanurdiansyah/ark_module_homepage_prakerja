@@ -1,4 +1,5 @@
 import 'package:ark_module_homepage_prakerja/ark_module_homepage_prakerja.dart';
+import 'package:ark_module_homepage_prakerja/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -138,7 +139,7 @@ class ArkPelatihanTerpopuler extends StatelessWidget {
                                 const SizedBox(
                                   width: 4,
                                 ),
-                                const Text(
+                                Text(
                                   // int.parse(_prakerjaHC
                                   //             .pelatihanTerpopuler[
                                   //                 index]
@@ -151,8 +152,8 @@ class ArkPelatihanTerpopuler extends StatelessWidget {
                                   //         .siswa!,
 
                                   //  CHANGING BY REQUEST
-                                  '> 1.000 siswa',
-                                  style: TextStyle(
+                                  '${_prakerjaHC.pelatihanTerpopuler[index].siswa!.parseInt().getSiswa()} siswa',
+                                  style: const TextStyle(
                                     fontSize: 10,
                                     fontWeight: FontWeight.w500,
                                     color: Color(0xff194476),

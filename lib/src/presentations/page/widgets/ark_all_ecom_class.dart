@@ -1,4 +1,5 @@
 import 'package:ark_module_homepage_prakerja/ark_module_homepage_prakerja.dart';
+import 'package:ark_module_homepage_prakerja/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -21,17 +22,12 @@ class ArkAllEcomClass extends StatelessWidget {
           horizontal: 16,
         ),
         scrollDirection: Axis.horizontal,
-        itemCount: _prakerjaHC.listHomeEcome.isEmpty
-            ? _prakerjaHC.mainEcomNewClassess.length
-            : _prakerjaHC.listHomeEcome.length,
+        itemCount: _prakerjaHC.mainEcomNewClassess.length,
         itemBuilder: (context, index) {
-          final tglMulai = _prakerjaHC.listHomeEcome.isEmpty
-              ? _prakerjaHC.mainEcomNewClassess[index].tanggalMulai ?? 0 * 1000
-              : _prakerjaHC.listHomeEcome[index].tanggalMulai ?? 0 * 1000;
-          final tglSelesai = _prakerjaHC.listHomeEcome.isEmpty
-              ? _prakerjaHC.mainEcomNewClassess[index].tanggalSelesai ??
-                  0 * 1000
-              : _prakerjaHC.listHomeEcome[index].tanggalSelesai ?? 0 * 1000;
+          final tglMulai =
+              _prakerjaHC.mainEcomNewClassess[index].tanggalMulai ?? 0 * 1000;
+          final tglSelesai =
+              _prakerjaHC.mainEcomNewClassess[index].tanggalSelesai ?? 0 * 1000;
           return InkWell(
             onTap: () => Get.toNamed('/class-prakerja',
                 arguments: _prakerjaHC.mainEcomNewClassess[index].id),
@@ -150,11 +146,12 @@ class ArkAllEcomClass extends StatelessWidget {
                                   const SizedBox(
                                     width: 4,
                                   ),
-                                  const Text(
+                                  Text(
                                     // '${(int.parse(_prakerjaHC.mainEcomNewClassess[index].siswa!) < 5) ? 5 : _prakerjaHC.mainEcomNewClassess[index].siswa!} siswa',
                                     //  CHANGING BY REQUEST
-                                    '> 1.000 siswa',
-                                    style: TextStyle(
+                                    '${_prakerjaHC.mainEcomNewClassess[index].siswa!.parseInt().getSiswa()} siswa',
+
+                                    style: const TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w500,
                                       color: Color(0xff194476),
