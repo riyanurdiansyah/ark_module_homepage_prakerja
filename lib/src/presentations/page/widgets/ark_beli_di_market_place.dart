@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:ark_module_homepage_prakerja/src/presentations/page/controller/ark_home_pake_controller.dart';
+import 'package:ark_module_homepage_prakerja/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -354,11 +355,10 @@ class ArkBeliDiMarketPlaceWebinar extends StatelessWidget {
                                                   const SizedBox(
                                                     width: 4,
                                                   ),
-                                                  const Text(
-                                                    // "${_prakerjaHc.listHomeEcome.isEmpty ? _prakerjaHc.mainEcomNewClassess[i].siswa ?? "35" : _prakerjaHc.listHomeEcome[i].siswa ?? "35"} Siswa",
+                                                  Text(
+                                                    "${_prakerjaHc.listHomeEcome.isEmpty ? _prakerjaHc.mainEcomNewClassess[i].siswa!.parseInt().getSiswa() : _prakerjaHc.listHomeEcome[i].siswa!.parseInt().getSiswa()} Siswa",
                                                     //  CHANGING BY REQUEST
-                                                    '> 1.000 siswa',
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                       fontSize: 10,
                                                       fontWeight:
                                                           FontWeight.w500,
