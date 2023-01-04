@@ -20,7 +20,11 @@ extension Siswa on int {
       return '> 1.000';
     } else {
       var format = formatter.format(this);
-      return format;
+      if (this < 5) {
+        return '5';
+      } else {
+        return format;
+      }
     }
   }
 }
